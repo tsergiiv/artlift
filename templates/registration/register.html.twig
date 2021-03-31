@@ -3,19 +3,105 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    <main class="registration">
+        <div class="login-left">
+            <div class="logo"></div>
+            <h1 class="register-title">Registration</h1>
+            {{ form_start(registrationForm) }}
+                <div class="form-group">
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'input-default'}}) }}
+                    {{ form_label(registrationForm.email, 'Email address') }}
+                    <div class="error-tip">Wrong format</div>
+                </div>
+                <div class="form-group">
+                    {{ form_widget(registrationForm.plainPassword,
+                        {'attr': {'class': 'input-default'},})
+                    }}
+                    {{ form_label(registrationForm.plainPassword, 'Password') }}
+                    <div class="error-tip">Wrong format</div>
+                    <div class="form-show"></div>
+                </div>
+                <div class="form-group-custom">
+                    <div class="form-group checkbox-group agreement-group">
+                        {{ form_widget(registrationForm.agreeTerms) }}
+                        {{ form_label(registrationForm.agreeTerms, ' ') }}
+                        <div class="legacies-agree">
+                            By clicking Register, you agree to our <a href="" class="link-sm">Terms of Services</a> and that you have read our <a href="" class="link-sm">Data Use Policy</a>, including our Cookie Use
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="divider-dark"></div>
+                <div class="btn-group">
+                    <button class="button button-default" type="submit">Register</button>
+                </div>
+    
+                <div class="social-divider"><span>Or Register with:</span></div>
+                <div class="social-buttons__group">
+                    <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
+                    <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/facebook.svg') }}">Facebook</a>
+                </div>
+            {{ form_end(registrationForm) }}
+            <div class="link-group">
+                <span>Already a member?</span>&nbsp;<a class="link-sm" href="{{ path('app_login') }}">Log in</a>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-carousel owl-carousel">
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="radials-bg">
+        <div class="radial-bg radial-1"></div>
+        <div class="radial-bg radial-2"></div>
+        <div class="radial-bg radial-3"></div>
+    </div>
+    
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}

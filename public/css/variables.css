@@ -1,0 +1,81 @@
+:root {
+    /* COLORS */
+    --dark-bg: #131824;
+    --color-transparent: transparent;
+    --color-white: #FFFFFF;
+    --color-pink: #EA4882;
+    --color-grey: #C4C4C4;
+    --color-blue: #004DF7;
+    --color-purple: #6140E6;
+    --color-divider-dark: #2C3444;
+    --color-checkbox-bg: #151A25;
+    --color-default-border: #373C48;
+    --color-radial: #4893EA;
+    --color-focused: #9FA3AB;
+    --color-description: #B4B6BD;
+    --color-error: #DE4761;
+    --color-success: #08A534;
+    --color-disabled: rgba(255, 255, 255, 0.2);
+    --color-page: rgba(234, 72, 130, 0.1);
+    --color-account-button: #1D2330;
+    --color-progress-icon: #393D49;
+    --color-progressbar: rgba(255, 255, 255, 0.04);
+    --color-old-price: rgba(255, 255, 255, 0.64);
+    --color-backdrop: rgba(12, 10, 24, 0.7);
+    --grad-glow: linear-gradient(208.11deg, rgba(255, 255, 255, 0.05) 1.08%, rgba(255, 255, 255, 0.02) 92.64%);
+    --grad-input: linear-gradient(297.64deg, #FDFDFE -19.98%, #FBFCFF 107.33%);
+
+    /* COLORS LIGHT */
+    --light-bg: #F6F7F9;
+    --color-divider-light: #EAEBEE;
+    --color-default-border-light: #DDE0E9;
+    --grad-glow-light: linear-gradient(297.64deg, #FDFDFE -19.98%, #FBFCFF 107.33%);
+
+    /* FONT SIZE */
+    --font-size-xxl: 32px;
+    --font-size-title: 28px;
+    --font-size-xl: 24px;
+    --font-size-l: 20px;
+    --font-size-name: 18px;
+    --font-size-m: 16px;
+    --font-size: 14px;
+    --font-size-sm: 13px;
+    --font-size-s: 12px;
+    --font-size-xs: 10px;
+
+    /* LINE HEIGHT */
+    --line-height-xxl: 40px;
+    --line-height-xl: 32px;
+    --line-height-l: 30px;
+    --line-height-m: 24px;
+    --line-height: 20px;
+    --line-height-s: 16px;
+
+    /* SPACING */
+    --letter-spacing-xl: -0.03em;
+    --letter-spacing-l: -0.025em;
+    --letter-spacing: -0.01em;
+    --letter-spacing-m: -0.015em;
+    --letter-spacing-sm: -0.08px;
+    --letter-spacing-s: -0.005em;
+    --letter-spacing-xs: 0.12em;
+
+    /* RADIUS */
+    --radius-circle: 50%;
+    --radius-52: 52px;
+    --radius-32: 32px;
+    --radius-24: 24px;
+    --radius-22: 22px;
+    --radius-20: 20px;
+    --radius-16: 16px;
+    --radius-12: 12px;
+    --radius-8: 8px;
+    --radius-4: 4px;
+    --radius-tooltip: 3px;
+    --radius-bottom-24: 0 0 24px 24px;
+
+    /* SHADOW */
+    --shadow-dropdown: 0 70px 100px rgba(1, 4, 5, 0.35);
+    --shadow-tooltip: 0 50px 100px rgba(123, 129, 152, 0.12);
+    --shadow-switcher: 0 1px 2px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,99 @@
+.light-theme .divider-dark {
+    background: var(--color-divider-light);
+}
+
+.light-theme .link-group {
+    color: var(--dark-bg);
+}
+
+.light-theme .input-default {
+    background: var(--grad-input);
+    border-color: var(--color-divider-light);
+    color: var(--dark-bg);
+}
+
+.light-theme .input-default:hover,
+.light-theme .input-default:focus {
+    border-color: var(--color-pink);
+}
+
+.light-theme .input-error .input-default {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.light-theme .input-default + label {
+    color: var(--dark-bg);
+}
+
+.light-theme .input-default:focus + label,
+.light-theme .input-default + label.input-focused {
+    color: var(--color-focused);
+}
+
+.light-theme .input-error .input-default + label {
+    color: var(--color-error);
+}
+
+.light-theme input[type="checkbox"] + label {
+    color: var(--dark-bg);
+}
+
+.light-theme input[type="checkbox"] + label::before {
+    background: var(--color-white);
+    border-color: var(--color-divider-light);
+}
+
+.light-theme input[type="checkbox"] + label:hover::before {
+    border-color: var(--color-pink);
+}
+
+.light-theme input[type="checkbox"]:checked + label::before {
+    border-color: var(--color-transparent);
+}
+
+.light-theme input[type="checkbox"]:checked + label::after {
+    background: url(../img/icons/checked.svg) center / 100% no-repeat;
+}
+
+.light-theme .button {
+    color: var(--dark-bg);
+}
+
+.light-theme .button-default {
+    color: var(--color-white);
+    background: var(--color-pink);
+}
+
+.light-theme .button-bordered {
+    border-color: var(--color-default-border-light);
+}
+
+.light-theme .button-back::before {
+    background-image: url(../img/icons/left-light.svg);
+}
+
+.light-theme .social-divider::before,
+.light-theme .social-divider::after {
+    background: var(--color-divider-light);
+}
+
+.light-theme .link-sm {
+    color: var(--color-pink);
+}
+
+.light-theme .form-show {
+    background-image: url(../img/icons/show-light.svg);
+}
+
+.light-theme .show-password .form-show {
+    background-image: url(../img/icons/hide-light.svg);
+}
+
+.light-theme .error-tip {
+    color: var(--color-error);
+}
+
+.light-theme .form-group::after {
+    background-color: var(--color-white);
+}
