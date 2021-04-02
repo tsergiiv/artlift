@@ -1,61 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Log in!{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
 
 {% block body %}
-    <main class="registration">
+    <main>
         <div class="login-left">
             <div class="logo"></div>
-            <h1 class="register-title">Registration</h1>
-            {{ form_start(registrationForm, {'attr': {'id': 'registration-form'}}) }}
+            <h1>Welcome to ARTLIFT <span>ai</span></h1>
+            <form method="post" id="login-form">
+    
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+    
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                
                 <div class="form-group">
-                    {{ form_widget(registrationForm.fullName, {
-                        'id': 'full-name',
-                        'attr': {'class': 'input-default'}
-                    }) }}
-                    {{ form_label(registrationForm.fullName, 'Full Name') }}
+                    <input class="input-default" id="email" type="email" name="email" value="{{ last_username }}" required>
+                    <label for="inputEmail">Email address</label>
                     <div class="error-tip">Wrong format</div>
                 </div>
-                <div class="form-group">
-                    {{ form_widget(registrationForm.email, {
-                        'id': 'email',
-                        'attr': {'class': 'input-default'}
-                    }) }}
-                    {{ form_label(registrationForm.email, 'Email address') }}
-                    <div class="error-tip">Wrong format</div>
-                </div>
-                <div class="form-group">
-                    {{ form_widget(registrationForm.plainPassword, {
-                        'id': 'password',
-                        'attr': {'class': 'input-default'},
-                    }) }}
-                    {{ form_label(registrationForm.plainPassword, 'Password') }}
-                    <div class="error-tip">Wrong format</div>
+                <div class="form-group password-group">
+                    <input class="input-default" id="password" type="password" name="password" required>
+                    <label for="inputPassword">Password</label>
+                    <div class="error-tip">Wrong password</div>
                     <div class="form-show"></div>
                 </div>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
                 <div class="form-group-custom">
-                    <div class="form-group checkbox-group agreement-group">
-                        {{ form_widget(registrationForm.agreeTerms) }}
-                        {{ form_label(registrationForm.agreeTerms, ' ') }}
-                        <div class="legacies-agree">
-                            By clicking Register, you agree to our <a href="" class="link-sm">Terms of Services</a> and that you have read our <a href="" class="link-sm">Data Use Policy</a>, including our Cookie Use
-                        </div>
+                    <div class="form-group checkbox-group">
+                        <input id="remember" type="checkbox" name="_remember_me">
+                        <label for="remember">Remember me</label>
                     </div>
+                    <a class="link-sm" href="{{ path('app_forgot_password_request') }}">Forgot password ?</a>
                 </div>
-    
                 <div class="divider-dark"></div>
                 <div class="btn-group">
-                    <button class="button button-default" id="submit-btn" type="submit">Register</button>
+                    <button class="button button-default" id="submit-btn" type="submit">Log in</button>
                 </div>
-    
-                <div class="social-divider"><span>Or Register with:</span></div>
+                <div class="social-divider"><span>Or Log in with</span></div>
                 <div class="social-buttons__group">
-                    <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
-                    <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/facebook.svg') }}">Facebook</a>
+                    <a href="{{ path('connect_google_start') }}" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
+                    <a href="{{ path('connect_facebook_start') }}" class="button button-bordered"><img src="{{ asset('img/icons/facebook.svg') }}">Facebook</a>
                 </div>
-            {{ form_end(registrationForm) }}
+            </form>
             <div class="link-group">
-                <span>Already a member?</span>&nbsp;<a class="link-sm" href="{{ path('app_login') }}">Log in</a>
+                <span>Don’t have an account?</span>&nbsp;<a class="link-sm" href="{{ path('app_register') }}">Register Now</a>
             </div>
         </div>
         <div class="login-right">
@@ -107,15 +111,6 @@
             </div>
         </div>
     </main>
-    <div class="radials-bg">
-        <div class="radial-bg radial-1"></div>
-        <div class="radialf-bg radial-2"></div>
-        <div class="radial-bg radial-3"></div>
-    </div>
-    
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
 {% endblock %}
 
 {% block footer_scripts %}
@@ -124,17 +119,16 @@
         $('#submit-btn').click(function (e) {
             e.preventDefault();
             
-            let fullName = checkField('full-name');
             let email = checkField('email');
             let password = checkField('password');
             
-            if (!fullName || !email || !password) {
+            if (!email || !password) {
                 return false;
             }
             
             console.log('submitting...');
             
-            $('#registration-form').submit();
+            $('#login-form').submit();
         });
     </script>
 

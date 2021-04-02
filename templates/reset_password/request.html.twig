@@ -1,61 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    <main class="registration">
+    <main>
         <div class="login-left">
             <div class="logo"></div>
-            <h1 class="register-title">Registration</h1>
-            {{ form_start(registrationForm, {'attr': {'id': 'registration-form'}}) }}
-                <div class="form-group">
-                    {{ form_widget(registrationForm.fullName, {
-                        'id': 'full-name',
-                        'attr': {'class': 'input-default'}
-                    }) }}
-                    {{ form_label(registrationForm.fullName, 'Full Name') }}
-                    <div class="error-tip">Wrong format</div>
-                </div>
-                <div class="form-group">
-                    {{ form_widget(registrationForm.email, {
+            <a class="button button-bordered button-back" href="{{ path('app_login') }}">Back</a>
+            <h1>Password Recovery</h1>
+            <div class="title-description">Enter your email address and we will send you instructions to reset your password</div>
+            {{ form_start(requestForm, {'attr': {'id': 'reset-password-form'}}) }}
+                <div class="form-group {{ email ? '' : 'input-error' }}">
+                    {{ form_widget(requestForm.email, {
                         'id': 'email',
-                        'attr': {'class': 'input-default'}
-                    }) }}
-                    {{ form_label(registrationForm.email, 'Email address') }}
-                    <div class="error-tip">Wrong format</div>
-                </div>
-                <div class="form-group">
-                    {{ form_widget(registrationForm.plainPassword, {
-                        'id': 'password',
                         'attr': {'class': 'input-default'},
                     }) }}
-                    {{ form_label(registrationForm.plainPassword, 'Password') }}
-                    <div class="error-tip">Wrong format</div>
-                    <div class="form-show"></div>
+                    <label for="email">Email address</label>
+                    <div class="error-tip">Could not find your account. Try to enter another email address.</div>
                 </div>
-                <div class="form-group-custom">
-                    <div class="form-group checkbox-group agreement-group">
-                        {{ form_widget(registrationForm.agreeTerms) }}
-                        {{ form_label(registrationForm.agreeTerms, ' ') }}
-                        <div class="legacies-agree">
-                            By clicking Register, you agree to our <a href="" class="link-sm">Terms of Services</a> and that you have read our <a href="" class="link-sm">Data Use Policy</a>, including our Cookie Use
-                        </div>
-                    </div>
-                </div>
-    
                 <div class="divider-dark"></div>
                 <div class="btn-group">
-                    <button class="button button-default" id="submit-btn" type="submit">Register</button>
+                    <button class="button button-default" id="submit-btn" type="submit">Submit</button>
                 </div>
-    
-                <div class="social-divider"><span>Or Register with:</span></div>
-                <div class="social-buttons__group">
-                    <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
-                    <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/facebook.svg') }}">Facebook</a>
-                </div>
-            {{ form_end(registrationForm) }}
+            {{ form_end(requestForm) }}
             <div class="link-group">
-                <span>Already a member?</span>&nbsp;<a class="link-sm" href="{{ path('app_login') }}">Log in</a>
+                <span>Don’t have an account?</span>&nbsp;<a class="link-sm" href="{{ path('app_register') }}">Register Now</a>
             </div>
         </div>
         <div class="login-right">
@@ -109,13 +78,18 @@
     </main>
     <div class="radials-bg">
         <div class="radial-bg radial-1"></div>
-        <div class="radialf-bg radial-2"></div>
+        <div class="radial-bg radial-2"></div>
         <div class="radial-bg radial-3"></div>
     </div>
     
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+{#    {% for flashError in app.flashes('reset_password_error') %}#}
+{#        <div class="alert alert-danger" role="alert">{{ flashError }}</div>#}
+{#    {% endfor %}#}
+
+{#    {{ form_start(requestForm) }}#}
+{#        {{ form_row(requestForm.email) }}#}
+{#        <button class="btn btn-primary">Send password reset email</button>#}
+{#    {{ form_end(requestForm) }}#}
 {% endblock %}
 
 {% block footer_scripts %}
@@ -124,17 +98,15 @@
         $('#submit-btn').click(function (e) {
             e.preventDefault();
             
-            let fullName = checkField('full-name');
             let email = checkField('email');
-            let password = checkField('password');
             
-            if (!fullName || !email || !password) {
+            if (!email) {
                 return false;
             }
             
             console.log('submitting...');
             
-            $('#registration-form').submit();
+            $('#reset-password-form').submit();
         });
     </script>
 
