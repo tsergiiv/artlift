@@ -1,0 +1,110 @@
+{% extends 'settings.html.twig' %}
+
+{% block title %}Hello SettingsController!{% endblock %}
+
+{% block body %}
+	<div class="main-wrapper default-card">
+		<div class="settings-form m-auto">
+			<div class="settings-title">Profile settings</div>
+			<form method="post">
+				<div class="form-group flex flex-column">
+					<input class="input-default" id="username" type="text" name="username">
+					<label for="username">Username</label>
+					<div class="error-tip">Wrong format</div>
+					<span class="settings-tip">Used for messege you correctly</span>
+				</div>
+				<div class="form-group flex flex-column">
+					<input class="input-default" id="email" type="email" name="email">
+					<label for="email">Email address</label>
+					<div class="error-tip">Wrong format</div>
+					<span class="settings-tip">Please enter the email associated to your Dribbble account</span>
+				</div>
+			</form>
+			<div class="divider-dark"></div>
+			<form method="post">
+				<div class="section-title">Password</div>
+				<div class="form-group password-group">
+					<input class="input-default" id="old-password" type="password" name="old-password">
+					<label for="old-password">Old password</label>
+					<div class="error-tip">Wrong password</div>
+					<div class="form-show"></div>
+				</div>
+				<div class="form-group password-group">
+					<input class="input-default" id="password" type="password" name="password">
+					<label for="password">Password</label>
+					<div class="error-tip">Wrong password</div>
+					<div class="form-show"></div>
+				</div>
+				<ul class="list-unstyled restore-list">
+					<li>At least 8 characters</li>
+					<li>At least one number or symbol</li>
+					<li>Both uppercase and lowercase letters</li>
+				</ul>
+				<div class="btn-group">
+					<button class="button button-default" type="submit">Change password</button>
+				</div>
+			</form>
+			<div class="divider-dark"></div>
+			<form method="post">
+				<div class="section-title">Connected accounts</div>
+				<div class="form-group form-connect">
+					<input class="input-default" id="dribbble" type="text" name="dribbble" value="https://dribbble.com/Montycor">
+					<label for="dribbble">Dribbble</label>
+					<div class="error-tip">Wrong format</div>
+					<div data-toggle="modal-cancel-connected" class="modal-toggle form-exit"></div>
+				</div>
+				<div class="form-group form-connect">
+					<input class="input-default" id="behance" type="text" name="behance" value="https://Behance.com/Montycor">
+					<label for="behance">Behance</label>
+					<div class="error-tip">Wrong format</div>
+					<div class="form-exit"></div>
+				</div>
+				<div class="form-group form-connect">
+					<input class="input-default" id="instagram" type="text" name="instagram">
+					<label for="instagram">Instagram</label>
+					<div class="error-tip">Wrong format</div>
+					<div class="form-add"></div>
+				</div>
+			</form>
+			<div class="divider-dark"></div>
+			<form method="post">
+				<div class="btn-group settings-group">
+					<div class="group-title">
+						Connected Accounts
+					</div>
+					<div class="group-description">
+						Delete your account and account data
+					</div>
+					<a href="#" data-toggle="modal-delete" class="modal-toggle button button-default button-warning text-center">Close account</a>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block modals %}
+	
+	<div id="modal-delete" class="modal m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-image user"></div>
+		<div class="modal-title text-center">Are you sure to Close your Account?</div>
+		<div class="modal-description text-center">All account information will be lost!</div>
+		<div class="divider-dark"></div>
+		<div class="btn-group modal-btn__group grid">
+			<a href="#" class="button button-grey text-center">Close Account</a>
+			<a href="#" class="button button-default text-center modal-close">Cancel</a>
+		</div>
+	</div>
+	<div id="modal-cancel-connected" class="modal m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-image cancel"></div>
+		<div class="modal-title text-center">Are you shure to delete connected Dribbble account <span>boro_uiux</span>?</div>
+		<div class="divider-dark"></div>
+		<div class="btn-group modal-btn__group grid">
+			<a href="#" class="button button-grey text-center">Yes</a>
+			<a href="#" class="button button-default text-center modal-close">No</a>
+		</div>
+	</div>
+
+{% endblock %}
+

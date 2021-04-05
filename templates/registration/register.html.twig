@@ -50,7 +50,7 @@
     
                 <div class="social-divider"><span>Or Register with:</span></div>
                 <div class="social-buttons__group">
-                    <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
+                    <a href="{{ path('signup_google_start') }}" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
                     <a href="#" class="button button-bordered"><img src="{{ asset('img/icons/facebook.svg') }}">Facebook</a>
                 </div>
             {{ form_end(registrationForm) }}
