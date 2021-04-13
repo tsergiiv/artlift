@@ -1,0 +1,59 @@
+{% extends 'cabinet.html.twig' %}
+
+{% block title %}Shots{% endblock %}
+
+{% block body %}
+	<main>
+		<div class="container list-container grid">
+			<div class="breadcrumbs flex align-center">
+				<a class="button button-bordered button-back" href="{{ path('dashboard') }}">Back</a>
+				<div class="breadcrumbs-title">Shots</div>
+			</div>
+			<div class="main-wrapper default-card list-card">
+				<div class="list-card__table shots-table">
+					{% for s in shots %}
+						<div class="list-table__item grid align-center">
+						<div class="table-item__heading"></div>
+						<div class="table-item__heading">Likes:</div>
+						<div class="table-item__heading">Views:</div>
+						<div class="table-item__heading">Comments:</div>
+						<div class="table-item__heading">Total Engagement:</div>
+						<div class="table-item__heading text-center">Last 7 days change</div>
+						<div class="table-item__heading"></div>
+						<div class="table-item__img">
+							<img src="{{ asset('img/' ~ s.image) }}" alt="Preview">
+						</div>
+						<div class="table-item__text">
+							214
+						</div>
+						<div class="table-item__text">
+							18 011
+						</div>
+						<div class="table-item__text">
+							13
+						</div>
+						<div class="table-item__text">
+							18 038
+						</div>
+						<div class="table-item__chart"></div>
+						<div class="table-item__button">
+							<a href="{{ path('shots_boost', {'shot_id': s.id}) }}" class="button button-default">Boost shot</a>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="pagination flex align-center justify-between">
+				<div class="pagination-total">page 1 of 30</div>
+				<div class="pagination-pages flex">
+					<a class="flex align-center justify-center page-prev" href="#"><img src="{{ asset('img/icons/page-left.svg') }}" alt="Prev"></a>
+					<a class="flex align-center justify-center" href="#">1</a>
+					<a class="flex align-center justify-center active" href="#">2</a>
+					<a class="flex align-center justify-center" href="#">3</a>
+					<a class="flex align-center justify-center" href="#">4</a>
+					<a class="flex align-center justify-center page-next" href="#"><img src="{{ asset('img/icons/page-right.svg') }}" alt="Next"></a>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

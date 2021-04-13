@@ -1,0 +1,25 @@
+{% extends 'cabinet.html.twig' %}
+
+{% block title %}Subscription{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div>
+			<h1>Checkout</h1>
+			
+			<p>Subscription Name: {{ sub.name }}</p>
+			<p>Subscription Price: ${{ sub.price | number_format(2, '.', ',') }}</p>
+			<button type="button" class="btn btn-primary">Pay</button>
+			<br>
+			<a href="{{ path('subscriptions') }}"><< back</a>
+		</div>
+	</div>
+</div>
+	
+{% endblock %}
