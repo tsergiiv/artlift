@@ -18,25 +18,23 @@ class PayController extends AbstractController
     /**
      * @Route("/api/shot_stripe_create_session")
      */
-    public function createSession(Request $request, Pay $pay,EntityManagerInterface $em)
+    public function createSession(Request $request, Pay $pay, EntityManagerInterface $em)
     {
         $task = new DribbbleShotTask();
         $body = json_decode($request->getContent());
         $amount = $body->amount;
 
-        $task->setAmmount($amount/100);
+        $task->setAmmount($amount / 100);
         $task->setPayed(0);
         $task->setCountLikes($body->countLikes);
         $task->setShot($body->shot);
 
-        $result =  $pay->createSession(
+        $result = $pay->createSession(
             $this->getParameter("stripe_secret_key"),
             "usd",
             $amount,
-
-            $this->getParameter("domain"). '/api/success/{CHECKOUT_SESSION_ID}',
-            $this->getParameter("domain")."/api/canceled"
-
+            $this->getParameter("domain") . '/api/success/{CHECKOUT_SESSION_ID}',
+            $this->getParameter("domain") . "/api/canceled"
         );
         $task->setSessionId($result['sessionId']);
 
@@ -49,9 +47,9 @@ class PayController extends AbstractController
     /**
      * @Route ("/api/success/{sessionId}")
      */
-    public function success($sessionId, Pay $pay,DribbbleShotTaskRepository $rep,EntityManagerInterface $em)
+    public function success($sessionId, Pay $pay, DribbbleShotTaskRepository $rep, EntityManagerInterface $em)
     {
-        $task = $rep->findOneBy(['sessionId'=>$sessionId]);
+        $task = $rep->findOneBy(['sessionId' => $sessionId]);
         $task->setPayed(1);
 
         $em->persist($task);

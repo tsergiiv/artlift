@@ -22,7 +22,7 @@
     <list default="true" id="8e866b38-7558-4239-810e-60a16f303560" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PayController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Pay.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Pay.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/DribbbleShotTask.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/DribbbleShotTask.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +209,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618209984645</updated>
       <workItem from="1618209985702" duration="2553000" />
-      <workItem from="1618213108843" duration="14916000" />
+      <workItem from="1618213108843" duration="16513000" />
     </task>
     <servers />
   </component>
