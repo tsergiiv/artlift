@@ -1,59 +1,23 @@
-/* Method for changing the submit text when the amount is changed */
-var updateAmount = function (evt) {
-    if (evt && evt.type === "keypress" && evt.keyCode !== 13) {
-        return;
-    }
-
-    var inputEl = document.getElementById("amount-input");
-    var amount = parseInt(inputEl.value)*0.5;
-
-
-
-
-    // Calculate the total amount and format it with currency symbol.
-    var numberFormat = new Intl.NumberFormat(i18next.language, {
-        style: "currency",
-        currency: config.currency,
-        currencyDisplay: "symbol",
-    });
-    var parts = numberFormat.formatToParts(amount);
-    var zeroDecimalCurrency = true;
-    for (var part of parts) {
-        if (part.type === "decimal") {
-            zeroDecimalCurrency = false;
-        }
-    }
-    amount = zeroDecimalCurrency ? amount : amount / 100;
-    var total = amount.toFixed(2) * 100;
-    var formattedTotal = numberFormat.format(total);
-
-    document
-        .getElementById("submit")
-        .setAttribute("i18n-options", `{ "total": "${formattedTotal}" }`);
-    updateContent("button.submit");
-
-};
-
-/* Attach method */
-document.getElementById("amount-input").addEventListener("change", updateAmount);
-
 // Create a Checkout Session with the selected amount
 var createCheckoutSession = function (stripe) {
-    var inputEl = document.getElementById("amount-input");
-    var amount = parseInt(inputEl.value) * 0.5 * 100;
-    var countLikes = parseInt(inputEl.value);
-    inputEl = document.getElementById("shot");
-    var shot = inputEl.value;
+    var amoutInput = document.getElementById("amount-input");
+    var amount = parseFloat(amoutInput.value) * 100;
 
-    return fetch("./api/shot_stripe_create_session", {
+    var subInput = document.getElementById("sub-input");
+    var sub_id = parseInt(subInput.value);
+
+    var userInput = document.getElementById("user-input");
+    var user_id = parseInt(userInput.value);
+
+    return fetch("../api/sub_stripe_create_session", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            amount: amount,
-            shot: shot,
-            countLikes: countLikes
+            amount:  amount,
+            sub_id:  sub_id,
+            user_id: user_id
         }),
     }).then(function (result) {
         return result.json();
@@ -84,7 +48,7 @@ var getAmountFromQueryString = function() {
 }
 
 /* Get your Stripe publishable key to initialize Stripe.js */
-fetch("./api/config")
+fetch("../api/config")
     .then(function (result) {
         return result.json();
     })
@@ -92,7 +56,6 @@ fetch("./api/config")
         window.config = json;
         var stripe = Stripe(config.publicKey);
         getAmountFromQueryString();
-        updateAmount();
         // Setup event handler to create a Checkout Session on submit
         document.querySelector("#submit").addEventListener("click", function (evt) {
             createCheckoutSession().then(function (data) {
