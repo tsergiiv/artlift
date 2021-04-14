@@ -20,27 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e866b38-7558-4239-810e-60a16f303560" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Symfony_12_04_2021__09_46.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/global.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/normalize.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/translation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/de.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/en.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/fr.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/ja.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/ms.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/locales/nl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/PayController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Pay.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/checkout.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artlift.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artlift.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/checkout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/checkout.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +204,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618209984645</updated>
       <workItem from="1618209985702" duration="2553000" />
-      <workItem from="1618213108843" duration="10093000" />
+      <workItem from="1618213108843" duration="10874000" />
     </task>
     <servers />
   </component>
