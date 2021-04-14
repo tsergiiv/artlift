@@ -64,6 +64,7 @@ class ShotsController extends AbstractController
         $sub = $em->getRepository(Subscription::class)->find($sub_id) ?? null;
         $shot = $em->getRepository(Shots::class)->find($shot_id) ?? null;
 
+
         return $this->render('shots/checkout.html.twig', [
             'sub'  => $sub,
             'shot' => $shot
