@@ -18,11 +18,9 @@ class Pay
      * @return JsonResponse
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public function createSession($stripeSecretKey, $currency, Request $request, $url)
+    public function createSession($stripeSecretKey, $currency, $amount, $url)
     {
         \Stripe\Stripe::setApiKey($stripeSecretKey);
-        $body = json_decode($request->getContent());
-        $amount = $body->amount;
 
         $checkoutSession = \Stripe\Checkout\Session::create([
             'success_url' => $url . '/api/success/{CHECKOUT_SESSION_ID}',
@@ -37,7 +35,7 @@ class Pay
             ]]
         ]);
 
-        return new JsonResponse(['sessionId' => $checkoutSession['id']], JsonResponse::HTTP_OK);
+        return ['response' => new JsonResponse(['sessionId' => $checkoutSession['id']], JsonResponse::HTTP_OK), 'sessionId' => $checkoutSession['id']];
 
     }
 

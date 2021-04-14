@@ -5,7 +5,10 @@ var updateAmount = function (evt) {
     }
 
     var inputEl = document.getElementById("amount-input");
-    var amount = parseInt(inputEl.value);
+    var amount = parseInt(inputEl.value)*0.5;
+
+
+
 
     // Calculate the total amount and format it with currency symbol.
     var numberFormat = new Intl.NumberFormat(i18next.language, {
@@ -37,7 +40,10 @@ document.getElementById("amount-input").addEventListener("change", updateAmount)
 // Create a Checkout Session with the selected amount
 var createCheckoutSession = function (stripe) {
     var inputEl = document.getElementById("amount-input");
-    var amount = parseInt(inputEl.value) * 100;
+    var amount = parseInt(inputEl.value) * 0.5 * 100;
+    var countLikes = parseInt(inputEl.value);
+    inputEl = document.getElementById("shot");
+    var shot = inputEl.value;
 
     return fetch("/api/shot_stripe_create_session", {
         method: "POST",
@@ -46,6 +52,8 @@ var createCheckoutSession = function (stripe) {
         },
         body: JSON.stringify({
             amount: amount,
+            shot: shot,
+            countLikes: countLikes
         }),
     }).then(function (result) {
         return result.json();
