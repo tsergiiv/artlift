@@ -118,7 +118,8 @@ class PayController extends AbstractController
         $em->persist($task);
         $em->flush();
 
-        return new JsonResponse($pay->getSession($this->getParameter("stripe_secret_key"), $sessionId), JsonResponse::HTTP_OK);
+        // return new JsonResponse($pay->getSession($this->getParameter("stripe_secret_key"), $sessionId), JsonResponse::HTTP_OK);
+        return $this->render('subscription/sucess.html.twig', []);
     }
 
     /**
