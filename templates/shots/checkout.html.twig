@@ -20,11 +20,18 @@
 
 			<p>Shot: <img src="{{ asset('img/' ~ shot.image) }}" alt=""></p>
 			<p>Price: ${{ sub.price | number_format(2, '.', ',') }}</p>
-			<button type="button" class="btn btn-primary">Pay</button>
+			<button type="button" id="shot-submit" class="btn btn-primary">Pay</button>
 			<br>
 			<a href="{{ path('shots_boost', {'shot_id': shot.id}) }}"><< back</a>
 		</div>
 	</div>
 </div>
 	
+{% endblock %}
+
+{% block footer_scripts %}
+
+	<script src="https://js.stripe.com/v3/"></script>
+	<script src="{{ asset('js/checkout.js') }}"></script>
+
 {% endblock %}

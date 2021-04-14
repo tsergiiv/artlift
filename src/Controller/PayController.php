@@ -35,7 +35,7 @@ class PayController extends AbstractController
             "usd",
             $amount,
             $this->getParameter("domain") . '/api/success/{CHECKOUT_SESSION_ID}',
-            $this->getParameter("domain"). "/api/pay-sub/canceled"
+            $this->getParameter("domain"). "/api/canceled"
         );
         $task->setSessionId($result['sessionId']);
 
@@ -63,7 +63,7 @@ class PayController extends AbstractController
      */
     public function canceled()
     {
-        return $this->render("subscription/canceled.html.twig");
+        return $this->render("shots/canceled.html.twig");
     }
 
     /**

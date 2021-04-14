@@ -87,7 +87,7 @@ fetch("../api/config")
         var stripe = Stripe(config.publicKey);
         getAmountFromQueryString();
         // Setup event handler to create a Checkout Session on submit
-        document.querySelector("#submit").addEventListener("click", function (evt) {
+        if (document.querySelector("#submit")) document.querySelector("#submit").addEventListener("click", function (evt) {
             createCheckoutSession().then(function (data) {
                 stripe
                     .redirectToCheckout({
@@ -96,7 +96,7 @@ fetch("../api/config")
                     .then(handleResult);
             });
         });
-        document.querySelector("#shot-submit").addEventListener("click", function (evt) {
+        if (document.querySelector("#shot-submit")) document.querySelector("#shot-submit").addEventListener("click", function (evt) {
             createCheckoutSessionShot().then(function (data) {
                 stripe
                     .redirectToCheckout({
