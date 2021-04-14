@@ -18,13 +18,13 @@ class Pay
      * @return JsonResponse
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public function createSession($stripeSecretKey, $currency, $amount, $url)
+    public function createSession($stripeSecretKey, $currency, $amount, $url,$curl)
     {
         \Stripe\Stripe::setApiKey($stripeSecretKey);
 
         $checkoutSession = \Stripe\Checkout\Session::create([
-            'success_url' => $url . '/api/success/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => $url . '/api/canceled',
+            'success_url' => $url,
+            'cancel_url' => $curl,
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'name' => 'Invoice Payment',

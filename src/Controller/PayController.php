@@ -33,7 +33,10 @@ class PayController extends AbstractController
             $this->getParameter("stripe_secret_key"),
             "usd",
             $amount,
-            $this->getParameter("domain")
+
+            $this->getParameter("domain"). '/api/success/{CHECKOUT_SESSION_ID}',
+            $this->getParameter("domain")."/api/canceled"
+
         );
         $task->setSessionId($result['sessionId']);
 
