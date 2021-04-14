@@ -49,6 +49,4 @@ class PayController extends AbstractController
     {
         return new JsonResponse(['publicKey' => $this->getParameter("stripe_public_key"), 'currency' => "usd"], JsonResponse::HTTP_OK);
     }
-
-
 }
