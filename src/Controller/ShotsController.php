@@ -41,6 +41,9 @@ class ShotsController extends AbstractController
             $this->redirectToRoute('shots');
         }
 
+        $suub = new Subscription();
+
+
         $subs = $em->getRepository(Subscription::class)
             ->findBy(['is_shot' => true], ['price' => 'asc']);
 

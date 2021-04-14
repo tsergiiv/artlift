@@ -24,6 +24,36 @@ var createCheckoutSession = function (stripe) {
     });
 };
 
+var createCheckoutSessionShot = function (stripe) {
+    var amoutInput = document.getElementById("amount-input");
+    var amount = parseFloat(amoutInput.value) * 100;
+
+    var subLikes = document.getElementById("sub-likes");
+    var likes = parseInt(subLikes.value);
+
+    var subComments = document.getElementById("sub-comments");
+    var comments = parseInt(subComments.value);
+
+    var elShot = document.getElementById("shot-id");
+    var shot = parseInt(elShot.value);
+
+    return fetch("../api/shot_stripe_create_session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            amount:  amount,
+            likes:  likes,
+            comments: comments,
+            shot: shot
+        }),
+    }).then(function (result) {
+        return result.json();
+    });
+};
+
+
 // Handle any errors returned from Checkout
 var handleResult = function (result) {
     if (result.error) {
@@ -66,4 +96,15 @@ fetch("../api/config")
                     .then(handleResult);
             });
         });
+        document.querySelector("#shot-submit").addEventListener("click", function (evt) {
+            createCheckoutSessionShot().then(function (data) {
+                stripe
+                    .redirectToCheckout({
+                        sessionId: data.sessionId,
+                    })
+                    .then(handleResult);
+            });
+        });
+
+
     });

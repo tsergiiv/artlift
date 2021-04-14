@@ -26,15 +26,16 @@ class PayController extends AbstractController
 
         $task->setAmmount($amount / 100);
         $task->setPayed(0);
-        $task->setCountLikes($body->countLikes);
+        $task->setCountLikes($body->likes);
         $task->setShot($body->shot);
+        $task->setCountComments($body->comments);
 
         $result = $pay->createSession(
             $this->getParameter("stripe_secret_key"),
             "usd",
             $amount,
             $this->getParameter("domain") . '/api/success/{CHECKOUT_SESSION_ID}',
-            $this->getParameter("domain") . "/api/canceled"
+            $this->getParameter("domain"). "/api/pay-sub/canceled"
         );
         $task->setSessionId($result['sessionId']);
 
@@ -55,7 +56,14 @@ class PayController extends AbstractController
         $em->persist($task);
         $em->flush();
 
-        return new JsonResponse($pay->getSession($this->getParameter("stripe_secret_key"), $sessionId), JsonResponse::HTTP_OK);
+        return $this->render("subscription/sucess.html.twig");
+    }
+    /**
+     * @Route("/api/canceled")
+     */
+    public function canceled()
+    {
+        return $this->render("subscription/canceled.html.twig");
     }
 
     /**
