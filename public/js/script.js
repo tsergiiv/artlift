@@ -76,7 +76,7 @@ var getAmountFromQueryString = function() {
 }
 
 /* Get your Stripe publishable key to initialize Stripe.js */
-fetch("/api/config")
+fetch("./api/config")
     .then(function (result) {
         return result.json();
     })
