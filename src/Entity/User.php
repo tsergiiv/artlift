@@ -57,6 +57,21 @@ class User implements UserInterface
      */
     private $facebookid;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dribbbleLogin;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dribbblePassword;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dribbbleAccount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +197,42 @@ class User implements UserInterface
     public function setFacebookid(?string $facebookid): self
     {
         $this->facebookid = $facebookid;
+
+        return $this;
+    }
+
+    public function getDribbbleLogin(): ?string
+    {
+        return $this->dribbbleLogin;
+    }
+
+    public function setDribbbleLogin(?string $dribbbleLogin): self
+    {
+        $this->dribbbleLogin = $dribbbleLogin;
+
+        return $this;
+    }
+
+    public function getDribbblePassword(): ?string
+    {
+        return $this->dribbblePassword;
+    }
+
+    public function setDribbblePassword(?string $dribbblePassword): self
+    {
+        $this->dribbblePassword = $dribbblePassword;
+
+        return $this;
+    }
+
+    public function getDribbbleAccount(): ?string
+    {
+        return $this->dribbbleAccount;
+    }
+
+    public function setDribbbleAccount(?string $dribbbleAccount): self
+    {
+        $this->dribbbleAccount = $dribbbleAccount;
 
         return $this;
     }
