@@ -72,6 +72,11 @@ class User implements UserInterface
      */
     private $dribbbleAccount;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dribbbleTimeLastAction;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -233,6 +238,18 @@ class User implements UserInterface
     public function setDribbbleAccount(?string $dribbbleAccount): self
     {
         $this->dribbbleAccount = $dribbbleAccount;
+
+        return $this;
+    }
+
+    public function getDribbbleTimeLastAction(): ?\DateTimeInterface
+    {
+        return $this->dribbbleTimeLastAction;
+    }
+
+    public function setDribbbleTimeLastAction(?\DateTimeInterface $dribbbleTimeLastAction): self
+    {
+        $this->dribbbleTimeLastAction = $dribbbleTimeLastAction;
 
         return $this;
     }

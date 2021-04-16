@@ -23,6 +23,7 @@ class SettingsController extends AbstractController
      */
     public function billingAction(): Response
     {
+
         return $this->render('settings/billing.html.twig', [
             'controller_name' => 'SettingsController',
         ]);

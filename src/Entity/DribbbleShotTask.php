@@ -48,6 +48,16 @@ class DribbbleShotTask
      */
     private $countComments;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $likesPassed;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $commentsPassed;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +131,30 @@ class DribbbleShotTask
     public function setCountComments(int $countComments): self
     {
         $this->countComments = $countComments;
+
+        return $this;
+    }
+
+    public function getLikesPassed(): ?int
+    {
+        return $this->likesPassed;
+    }
+
+    public function setLikesPassed(?int $likesPassed): self
+    {
+        $this->likesPassed = $likesPassed;
+
+        return $this;
+    }
+
+    public function getCommentsPassed(): ?int
+    {
+        return $this->commentsPassed;
+    }
+
+    public function setCommentsPassed(?int $commentsPassed): self
+    {
+        $this->commentsPassed = $commentsPassed;
 
         return $this;
     }
