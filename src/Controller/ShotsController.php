@@ -41,6 +41,9 @@ class ShotsController extends AbstractController
             $this->redirectToRoute('shots');
         }
 
+        $suub = new Subscription();
+
+
         $subs = $em->getRepository(Subscription::class)
             ->findBy(['is_shot' => true], ['price' => 'asc']);
 
@@ -63,6 +66,7 @@ class ShotsController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $sub = $em->getRepository(Subscription::class)->find($sub_id) ?? null;
         $shot = $em->getRepository(Shots::class)->find($shot_id) ?? null;
+
 
         return $this->render('shots/checkout.html.twig', [
             'sub'  => $sub,

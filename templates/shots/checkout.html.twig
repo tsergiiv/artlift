@@ -12,14 +12,26 @@
 	<div class="row justify-content-center">
 		<div>
 			<h1>Checkout</h1>
-			
+			<input type="text" id="amount-input" name="price" value="{{ sub.price }}" hidden>
+			<input type="text" id="sub-comments" name="comments" value="{{ sub.comments }}" hidden>
+			<input type="text" id="sub-likes" name="likes" value="{{ sub.likes }}" hidden>
+			<input type="text" id="shot-id" name="shot" value="{{ shot.id }}" hidden>
+
+
 			<p>Shot: <img src="{{ asset('img/' ~ shot.image) }}" alt=""></p>
 			<p>Price: ${{ sub.price | number_format(2, '.', ',') }}</p>
-			<button type="button" class="btn btn-primary">Pay</button>
+			<button type="button" id="shot-submit" class="btn btn-primary">Pay</button>
 			<br>
 			<a href="{{ path('shots_boost', {'shot_id': shot.id}) }}"><< back</a>
 		</div>
 	</div>
 </div>
 	
+{% endblock %}
+
+{% block footer_scripts %}
+
+	<script src="https://js.stripe.com/v3/"></script>
+	<script src="{{ asset('js/checkout.js') }}"></script>
+
 {% endblock %}

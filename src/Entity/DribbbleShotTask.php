@@ -43,6 +43,11 @@ class DribbbleShotTask
      */
     private $shot;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $countComments;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +109,18 @@ class DribbbleShotTask
     public function setShot(string $shot): self
     {
         $this->shot = $shot;
+
+        return $this;
+    }
+
+    public function getCountComments(): ?int
+    {
+        return $this->countComments;
+    }
+
+    public function setCountComments(int $countComments): self
+    {
+        $this->countComments = $countComments;
 
         return $this;
     }
