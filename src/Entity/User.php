@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -58,6 +60,16 @@ class User implements UserInterface
     private $facebookid;
 
     /**
+     * @ORM\OneToMany(targetEntity=DribbleSubscriptionTask::class, mappedBy="user")
+     */
+    private $subscriptions;
+
+    public function __construct()
+    {
+        $this->subscriptions = new ArrayCollection();
+    }
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $dribbbleLogin;
@@ -71,11 +83,6 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $dribbbleAccount;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dribbbleTimeLastAction;
 
     public function getId(): ?int
     {
@@ -242,14 +249,32 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDribbbleTimeLastAction(): ?\DateTimeInterface
+    /**
+     * @return Collection|DribbleSubscriptionTask[]
+     */
+    public function getSubscriptions(): Collection
     {
-        return $this->dribbbleTimeLastAction;
+        return $this->subscriptions;
     }
 
-    public function setDribbbleTimeLastAction(?\DateTimeInterface $dribbbleTimeLastAction): self
+    public function addSubscription(DribbleSubscriptionTask $subscription): self
     {
-        $this->dribbbleTimeLastAction = $dribbbleTimeLastAction;
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions[] = $subscription;
+            $subscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(DribbleSubscriptionTask $subscription): self
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getUser() === $this) {
+                $subscription->setUser(null);
+            }
+        }
 
         return $this;
     }

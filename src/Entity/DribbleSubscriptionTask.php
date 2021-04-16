@@ -42,6 +42,11 @@ class DribbleSubscriptionTask
      */
     private $sub_id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="subscriptions")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class DribbleSubscriptionTask
     public function setSubId(int $sub_id): self
     {
         $this->sub_id = $sub_id;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
