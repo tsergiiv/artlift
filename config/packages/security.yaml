@@ -22,6 +22,16 @@ security:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        google_login:
+            pattern: ^/api/google/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: /api/google/login_check
+                username_path: email
+                password_path: google_id
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
             pattern: ^/api
             stateless: true
