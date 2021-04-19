@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\DribbbleShotTask;
 use App\Entity\DribbleSubscriptionTask;
+use App\Entity\User;
 use App\Repository\DribbbleShotTaskRepository;
 use App\Repository\DribbleSubscriptionTaskRepository;
 use App\Service\Pay;
@@ -87,10 +88,13 @@ class PayController extends AbstractController
         $task = new DribbleSubscriptionTask();
         $body = json_decode($request->getContent());
         $amount = $body->amount;
+        $user_id = $body->user_id;
+        $user = $em->getRepository(User::class)->find($user_id);
 
         $task->setAmount($amount / 100);
         $task->setPayed(0);
         $task->setSubId($body->sub_id);
+        $task->setUser($user);
         $task->setUserId($body->user_id);
 
         $result = $pay->createSession(
