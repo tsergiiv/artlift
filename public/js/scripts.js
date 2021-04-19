@@ -28,6 +28,10 @@ $(document).ready(function(){
     });
     $('body').on('click', '.modal-toggle', function(e){
         let modal = $(this).attr('data-toggle');
+        let link = $(this).attr("href");
+        $(document).find('#cancel').attr('href',link);
+        $(document).find('#cancel2').attr('href',link);
+
         $(document).find('#' + modal).fadeIn(300);
         $('body').addClass('modal-open');
         $('<div class="backdrop"></div>').hide().appendTo('body').fadeIn(300);

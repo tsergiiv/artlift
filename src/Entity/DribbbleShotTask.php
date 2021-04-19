@@ -58,6 +58,16 @@ class DribbbleShotTask
      */
     private $commentsPassed;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="dribbbleShotTasks")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $payDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +165,30 @@ class DribbbleShotTask
     public function setCommentsPassed(?int $commentsPassed): self
     {
         $this->commentsPassed = $commentsPassed;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPayDate(): ?\DateTimeInterface
+    {
+        return $this->payDate;
+    }
+
+    public function setPayDate(\DateTimeInterface $payDate): self
+    {
+        $this->payDate = $payDate;
 
         return $this;
     }

@@ -44,6 +44,9 @@ var createCheckoutSession = function (stripe) {
     var countLikes = parseInt(inputEl.value);
     inputEl = document.getElementById("shot");
     var shot = inputEl.value;
+    inputEl = document.getElementById("user-id");
+    var userId = inputEl.value;
+
 
     return fetch("./api/shot_stripe_create_session", {
         method: "POST",
@@ -53,7 +56,8 @@ var createCheckoutSession = function (stripe) {
         body: JSON.stringify({
             amount: amount,
             shot: shot,
-            countLikes: countLikes
+            countLikes: countLikes,
+            user_id: userId,
         }),
     }).then(function (result) {
         return result.json();

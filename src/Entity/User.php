@@ -67,6 +67,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
+        $this->dribbbleShotTasks = new ArrayCollection();
     }
 
     /**
@@ -83,6 +84,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $dribbbleAccount;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DribbbleShotTask::class, mappedBy="user")
+     */
+    private $dribbbleShotTasks;
 
     public function getId(): ?int
     {
@@ -273,6 +279,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($subscription->getUser() === $this) {
                 $subscription->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DribbbleShotTask[]
+     */
+    public function getDribbbleShotTasks(): Collection
+    {
+        return $this->dribbbleShotTasks;
+    }
+
+    public function addDribbbleShotTask(DribbbleShotTask $dribbbleShotTask): self
+    {
+        if (!$this->dribbbleShotTasks->contains($dribbbleShotTask)) {
+            $this->dribbbleShotTasks[] = $dribbbleShotTask;
+            $dribbbleShotTask->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDribbbleShotTask(DribbbleShotTask $dribbbleShotTask): self
+    {
+        if ($this->dribbbleShotTasks->removeElement($dribbbleShotTask)) {
+            // set the owning side to null (unless already changed)
+            if ($dribbbleShotTask->getUser() === $this) {
+                $dribbbleShotTask->setUser(null);
             }
         }
 

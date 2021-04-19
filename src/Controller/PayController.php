@@ -6,6 +6,7 @@ use App\Entity\DribbbleShotTask;
 use App\Entity\DribbleSubscriptionTask;
 use App\Repository\DribbbleShotTaskRepository;
 use App\Repository\DribbleSubscriptionTaskRepository;
+use App\Repository\UserRepository;
 use App\Service\Pay;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,7 @@ class PayController extends AbstractController
     /**
      * @Route("/api/shot_stripe_create_session")
      */
-    public function createSession(Request $request, Pay $pay, EntityManagerInterface $em)
+    public function createSession(UserRepository $urep, Request $request, Pay $pay, EntityManagerInterface $em)
     {
         $task = new DribbbleShotTask();
         $body = json_decode($request->getContent());
@@ -29,7 +30,8 @@ class PayController extends AbstractController
         $task->setCountLikes($body->likes);
         $task->setShot($body->shot);
         $task->setCountComments($body->comments);
-
+        $task->setUser($urep->find($body->user_id));
+        $task->setPayDate(new \DateTime());
         $result = $pay->createSession(
             $this->getParameter("stripe_secret_key"),
             "usd",

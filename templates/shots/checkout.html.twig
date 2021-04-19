@@ -16,7 +16,7 @@
 			<input type="text" id="sub-comments" name="comments" value="{{ sub.comments }}" hidden>
 			<input type="text" id="sub-likes" name="likes" value="{{ sub.likes }}" hidden>
 			<input type="text" id="shot-id" name="shot" value="{{ shot.id }}" hidden>
-
+			<input type="text" id="user-id" name="user-id" value="{{ app.user.id }}" hidden>
 
 			<p>Shot: <img src="{{ asset('img/' ~ shot.image) }}" alt=""></p>
 			<p>Price: ${{ sub.price | number_format(2, '.', ',') }}</p>
