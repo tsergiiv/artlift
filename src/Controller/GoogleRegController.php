@@ -53,7 +53,8 @@ class GoogleRegController extends AbstractController
                 ->findOneBy(['email' => $google_user->getEmail()]) ?? null;
 
             if ($user) {
-                return $this->redirectToRoute('app_login', ['error' => 1]);
+                $this->addFlash('error', $this->getParameter('user_exists_message'));
+                return $this->redirectToRoute('app_login');
             }
 
             $new_user = new User();
@@ -72,6 +73,7 @@ class GoogleRegController extends AbstractController
             $em->persist($new_user);
             $em->flush();
 
+            $this->addFlash('success', $this->getParameter('success_register_message'));
             return $this->redirectToRoute('app_login');
         } catch (IdentityProviderException $e) {
             // something went wrong!

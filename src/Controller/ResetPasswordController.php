@@ -128,6 +128,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
+            $this->addFlash('success', 'Password was changed');
             return $this->redirectToRoute('app_login');
         }
 
@@ -163,7 +164,7 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('art@lift.com', 'Arflift'))
+            ->from(new Address($this->getParameter('email'), 'Arflift'))
             ->to($user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('reset_password/email.html.twig')

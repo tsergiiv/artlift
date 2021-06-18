@@ -51,6 +51,7 @@ class FacebookRegController extends AbstractController
                 ->findOneBy(['email' => $facebook_user->getEmail()]) ?? null;
 
             if ($user) {
+                $this->addFlash('error', $this->getParameter('user_exists_message'));
                 return $this->redirectToRoute('app_login');
             }
 
@@ -70,6 +71,7 @@ class FacebookRegController extends AbstractController
             $em->persist($new_user);
             $em->flush();
 
+            $this->addFlash('success', $this->getParameter('success_register_message'));
             return $this->redirectToRoute('app_login');
         } catch (IdentityProviderException $e) {
             // something went wrong!

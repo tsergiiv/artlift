@@ -223,6 +223,10 @@ input[type="checkbox"]:checked + label::after {
     display: inline-block;
 }
 
+.button:disabled {
+    opacity: .7 !important;
+}
+
 .button-bordered {
     border-radius: var(--radius-12);
     border: 1px solid var(--color-default-border);

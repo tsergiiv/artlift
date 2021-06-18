@@ -6,22 +6,22 @@
 	<div class="main-wrapper default-card">
 		<div class="settings-form m-auto">
 			<div class="settings-title">Profile settings</div>
-			<form method="post">
+			<form method="post" id="settings-profile-form">
 				<div class="form-group flex flex-column">
-					<input class="input-default" id="username" type="text" name="username">
+					<input class="input-default" id="full-name" type="text" name="username" value="{{ app.user.fullName }}">
 					<label for="username">Username</label>
 					<div class="error-tip">Wrong format</div>
 					<span class="settings-tip">Used for messege you correctly</span>
 				</div>
 				<div class="form-group flex flex-column">
-					<input class="input-default" id="email" type="email" name="email">
+					<input class="input-default" id="email" type="email" name="email" value="{{ app.user.email }}">
 					<label for="email">Email address</label>
 					<div class="error-tip">Wrong format</div>
 					<span class="settings-tip">Please enter the email associated to your Dribbble account</span>
 				</div>
-			</form>
-			<div class="divider-dark"></div>
-			<form method="post">
+
+				<div class="divider-dark"></div>
+
 				<div class="section-title">Password</div>
 				<div class="form-group password-group">
 					<input class="input-default" id="old-password" type="password" name="old-password">
@@ -30,7 +30,7 @@
 					<div class="form-show"></div>
 				</div>
 				<div class="form-group password-group">
-					<input class="input-default" id="password" type="password" name="password">
+					<input class="input-default" id="new-password" type="password" name="password">
 					<label for="password">Password</label>
 					<div class="error-tip">Wrong password</div>
 					<div class="form-show"></div>
@@ -41,29 +41,27 @@
 					<li>Both uppercase and lowercase letters</li>
 				</ul>
 				<div class="btn-group">
-					<button class="button button-default" type="submit">Change password</button>
+					<button class="button button-default" id="save-changes-btn" type="submit">Save changes</button>
 				</div>
 			</form>
 			<div class="divider-dark"></div>
 			<form method="post">
 				<div class="section-title">Connected accounts</div>
 				<div class="form-group form-connect">
-					<input class="input-default" id="dribbble" type="text" name="dribbble" value="https://dribbble.com/Montycor">
+					<input class="input-default" id="dribbble" type="text" name="dribbble" value="https://dribbble.com/Montycor" disabled>
 					<label for="dribbble">Dribbble</label>
 					<div class="error-tip">Wrong format</div>
 					<div data-toggle="modal-cancel-connected" class="modal-toggle form-exit"></div>
 				</div>
 				<div class="form-group form-connect">
-					<input class="input-default" id="behance" type="text" name="behance" value="https://Behance.com/Montycor">
+					<input class="input-default" id="behance" type="text" name="behance" value="Soon" disabled>
 					<label for="behance">Behance</label>
 					<div class="error-tip">Wrong format</div>
-					<div class="form-exit"></div>
 				</div>
 				<div class="form-group form-connect">
-					<input class="input-default" id="instagram" type="text" name="instagram">
+					<input class="input-default" id="instagram" type="text" name="instagram" value="Soon" disabled>
 					<label for="instagram">Instagram</label>
 					<div class="error-tip">Wrong format</div>
-					<div class="form-add"></div>
 				</div>
 			</form>
 			<div class="divider-dark"></div>
@@ -106,5 +104,28 @@
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block footer_scripts %}
+	<script>
+		$('#save-changes-btn').click(function (e) {
+			e.preventDefault();
+
+			let fullName = checkField('full-name');
+			let email = checkField('email');
+			let oldPassword = checkField('old-password');
+			let newPassword = checkField('new-password');
+
+			if (!fullName || !email || !oldPassword || !newPassword) {
+				return false;
+			}
+
+			console.log('submitting...');
+
+			$('#settings-profile-form').submit();
+
+			console.log('click');
+		});
+	</script>
 {% endblock %}
 

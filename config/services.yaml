@@ -9,6 +9,9 @@ parameters:
     stripe_secret_key: '%env(STRIPE_SECRET_KEY)%'
     stripe_public_key: '%env(STRIPE_PUBLIC_KEY)%'
     domain: '%env(DOMAIN)%'
+    user_exists_message: '%env(USER_EXISTS_MESSAGE)%'
+    success_register_message: '%env(SUCCESS_REGISTER_MESSAGE)%'
+    email: '%env(EMAIL)%'
 
 services:
     # default configuration for services in *this* file
