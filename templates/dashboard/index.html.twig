@@ -1,0 +1,145 @@
+{% extends 'cabinet.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+	<main>
+		<div class="container main-container grid">
+			<div class="main-wrapper default-card">
+				<div class="connect-title flex flex-column justify-center m-auto">
+					<div class="connect-title__img">
+						<img src="{{ asset('img/dribbble.png') }}" class="img-fluid" alt="Connect">
+					</div>
+					<div class="connect-title__text flex flex-column justify-center">
+						Connect your Dribbble account
+						<span>Add your account to start interacting with the platform</span>
+					</div>
+				</div>
+				<div class="connect-form m-auto">
+					<form method="post">
+						<div class="form-group tooltip-group">
+							<div class="tooltip">
+								<div class="tooltip-content top">
+									<div class="tooltip-title">
+										Please enter the email associated to your Dribbble account
+									</div>
+									<div class="tooltip-description">
+										Your Dribbble Credentials are fully encrypted.
+										We do not have any direct control over your Dribbble Account and
+										you can deactivate your account anytime you wish.
+									</div>
+								</div>
+							</div>
+							<input class="input-default" id="dribbble-email" type="email" name="dribbble-email">
+							<label for="dribbble-email">Dribbble email address</label>
+							<div class="error-tip">Wrong format</div>
+						</div>
+						<div class="form-group password-group tooltip-group">
+							<div class="tooltip">
+								<div class="tooltip-content top">
+									<div class="tooltip-title">
+										Please enter the email associated to your Dribbble account
+									</div>
+									<div class="tooltip-description">
+										Your Dribbble Credentials are fully encrypted.
+										We do not have any direct control over your Dribbble Account and
+										you can deactivate your account anytime you wish.
+									</div>
+								</div>
+							</div>
+							<input class="input-default" id="dribbble-password" type="password" name="dribbble-password">
+							<label for="dribbble-password">Dribbble password</label>
+							<div class="error-tip">Wrong password</div>
+							<div class="form-show"></div>
+						</div>
+						<div class="divider-dark"></div>
+						<div class="btn-group btn-group__text grid align-center">
+							<button class="button button-default" type="submit">Connect Account</button>
+							<div  class="group-text">
+								You agree to Terms & Conditions and Privacy Policy by clicking the button
+							</div>
+						</div>
+					</form>
+					<div class="connect-tip text-center">
+						<p>Your Dribbble Credentials are fully encrypted.</p>
+						<p>We do not have any direct control over your Dribbble Account and</p>
+						<p>you can deactivate your account anytime you wish.</p>
+					</div>
+				</div>
+			</div>
+			<aside class="colum-right grid">
+				<div class="default-card">
+					<div class="card-title aside-title flex align-center">
+						<div class="tooltip">
+							<div class="tooltip-content bottom">
+								<div class="tooltip-title">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								</div>
+								<div class="tooltip-description">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+									Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+								</div>
+							</div>
+						</div>
+						Lift Flow
+						<div class="card-title__counter ml-auto">
+							0/24
+						</div>
+					</div>
+					<div class="aside-rank flex flex-column">
+						<div class="rank-title text-center">
+							Your current rank is: <span>Newbie</span>
+						</div>
+						<div class="rank-progress flex align-center justify-between">
+							<div class="progress-info flex">
+								<div class="progress-icon flex align-center justify-center">
+									<img src="{{ asset('img/icons/achievement.png') }}" alt="Achievement">
+								</div>
+								<div class="progress-text flex flex-column justify-center">
+									It remains to execute
+									<span>5 tasks</span>
+								</div>
+							</div>
+							<div class="progress-count">
+								20 %
+							</div>
+							<div class="progressbar" style="width: 20%;"></div>
+						</div>
+						<div class="rank-next flex align-center justify-between">
+							<div class="next-title">Next rank</div>
+							<div class="next-name">Professional</div>
+						</div>
+					</div>
+					<div class="aside-buttons grid">
+						<a href="#" class="button button-connect dribbble justify-start active">
+							Add your&nbsp;<span>dribbble</span>&nbsp;account
+						</a>
+						<a href="#" class="button button-connect behance justify-start">
+							Add your&nbsp;<span>behance</span>&nbsp;account <div class="button button-small ml-auto">Add</div>
+						</a>
+					</div>
+					<div class="connect-tip text-center">
+						<p>We've prepared over 24 steps for you</p>
+						<p>to help you to become one of the most popular artist</p>
+					</div>
+				</div>
+				<div class="default-card p-0">
+					<div class="aside-boost grid align-center h-100">
+						<div class="boost-image"><img src="{{ asset('img/dribbble.png') }}" class="img-fluid" alt="Boost now"></div>
+						<div class="boost-info">
+							<div class="boost-title">Artlift pro booster</div>
+							<div class="boost-price">
+								$ 14.99
+								<span class="old-price">$ 30</span>
+							</div>
+							<a href="{{ path('subscriptions') }}">
+								<div class="button button-default boost-button">Boost now</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+	</main>
+{% endblock %}

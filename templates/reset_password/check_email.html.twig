@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="login-left">
+            <div class="logo">
+                <img src="{{ asset('img/logo.svg') }}" alt="Artlift">
+            </div>
+            <a class="button button-bordered button-back" href="{{ path('app_login') }}">Back</a>
+            <h1 class="reset-success__title">Reset password success</h1>
+            <div class="title-description">A message has been sent to <span>{{ email }}</span> with instruction to reset your password</div>
+            <div class="divider-dark"></div>
+            <div class="btn-group">
+                <a href="{{ path('app_login') }}" class="button button-default">Got it</a>
+            </div>
+            <div class="link-group">
+                <span>Don’t have an account?</span>&nbsp;<a class="link-sm" href="{{ path('app_register') }}">Register Now</a>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-carousel owl-carousel">
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="radials-bg">
+        <div class="radial-bg radial-1"></div>
+        <div class="radial-bg radial-2"></div>
+        <div class="radial-bg radial-3"></div>
+    </div>
+{% endblock %}

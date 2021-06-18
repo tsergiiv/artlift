@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="login-left">
+            <div class="logo">
+                <img src="{{ asset('img/logo.svg') }}" alt="Artlift">
+            </div>
+            <h1 class="restore-title">Restore password</h1>
+{#            {{ form_row(resetForm.plainPassword) }}#}
+            
+            {{ form_start(resetForm, {'attr': {'id': 'reset-password-form'}}) }}
+                <div class="form-group password-group">
+                    {{ form_widget(resetForm.plainPassword.first, {
+                        'id': 'new-password',
+                        'attr': {'class': 'input-default'}
+                    }) }}
+                    <label for="new-password">New password</label>
+                    <div class="error-tip">Wrong password</div>
+                    <div class="form-show"></div>
+                </div>
+                <div class="form-group password-group">
+                    {{ form_widget(resetForm.plainPassword.second, {
+                        'id': 'repeat-password',
+                        'attr': {'class': 'input-default'}
+                    }) }}
+                    <label for="repeat-password">Repeat password</label>
+                    <div class="error-tip">Wrong password</div>
+                    <div class="form-show"></div>
+                </div>
+                <div id="strength">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <ul class="list-unstyled restore-list">
+                    <li>At least 8 characters</li>
+                    <li>At least one number or symbol</li>
+                    <li>Both uppercase and lowercase letters</li>
+                </ul>
+                <div class="divider-dark"></div>
+                <div class="btn-group">
+                    <button class="button button-default" id="submit-btn" type="submit">Change password</button>
+                </div>
+                <div class="social-divider restore-divider"><span>Or Log in with</span></div>
+                <div class="social-buttons__group">
+                    <a href="{{ path('connect_google_start') }}" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
+                    <a href="{{ path('connect_facebook_start') }}" class="button button-bordered"><img src="{{ asset('img/icons/facebook.svg') }}">Facebook</a>
+                </div>
+            {{ form_end(resetForm) }}
+            <div class="link-group">
+                <span>Don’t have an account?</span>&nbsp;<a class="link-sm" href="{{ path('app_register') }}">Register Now</a>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-carousel owl-carousel">
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="radials-bg">
+        <div class="radial-bg radial-1"></div>
+        <div class="radial-bg radial-2"></div>
+        <div class="radial-bg radial-3"></div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    
+    <script>
+        $('#submit-btn').click(function (e) {
+            e.preventDefault();
+            
+            let newPassword = checkField('new-password');
+            let repeatPassword = checkRepeat('repeat-password', 'new-password');
+            
+            if (!newPassword || !repeatPassword) {
+                return false;
+            }
+            
+            console.log('submitting...');
+            
+            $('#reset-password-form').submit();
+        });
+        
+        $('#new-password').on('keyup', function() {
+            let value = $(this).val().trim();
+            
+            сheckPasswordStrength(value);
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'cabinet.html.twig' %}
+
+{% block title %}Subscription{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row justify-content-center">
+		<form method="post" action="{{ path('subscriptions_checkout') }}">
+			{% for s in subs %}
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="sub_id" id="inlineRadio{{ s.id }}" value="{{ s.id }}" required>
+					<label class="form-check-label" for="inlineRadio{{ s.id }}">{{ s.name }} ${{ s.price | number_format(2, '.', ',') }}</label>
+				</div>
+			{% endfor %}
+			<button type="submit" class="btn btn-primary">Subscribe</button>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

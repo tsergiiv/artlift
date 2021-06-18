@@ -1,0 +1,46 @@
+@import url('../css/fonts.css');
+@import url('../css/variables.css');
+@import url('../css/ui-styles.css');
+@import url('../css/ui-styles-light.css');
+
+body {
+    font-weight: 400;
+    font-family: Formular;
+    margin: 0;
+    padding: 0;
+    color: var(--color-white);
+    background: url(../img/main-bg.png) left top / cover no-repeat var(--dark-bg);
+}
+* {
+    box-sizing: border-box;
+    outline: none!important;
+    transition-property: color, background;
+    transition-duration: .3s;
+    transition-timing-function: ease;
+    text-decoration: none!important;
+}
+.logo {
+    width: 127px;
+    height: 36px;
+    background: url(../img/logo.svg) center / 100% no-repeat;
+}
+h1 {
+    color: var(--color-white);
+}
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 64px;
+}
+
+/* LIGHT THEME */
+body.light-theme {
+    color: var(--dark-bg);
+    background: var(--light-bg);
+}
+.light-theme .logo {
+    background-image: url(../img/logo-light.svg);
+}
+.light-theme h1 {
+    color: var(--dark-bg);
+}

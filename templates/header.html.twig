@@ -1,0 +1,41 @@
+<header>
+	<div class="container flex align-center h-100">
+		<a href="{{ path('dashboard') }}"><div class="logo"></div></a>
+		<nav class="grid h-100">
+			<a class="flex align-center justify-center h-100 active" href="#">Dribbble</a>
+			<a class="flex align-center justify-center h-100" href="#">Behance <div class="button button-small">Soon</div></a>
+			<a class="flex align-center justify-center h-100" href="#">Instagram <div class="button button-small">Soon</div></a>
+		</nav>
+		<div class="flex ml-auto">
+			<div class="notifications empty button-account dropdown-control">
+				<div class="dropdown dropdown-center flex flex-column">
+					<div class="notifications-title mt-auto">No notifications yet</div>
+					<div class="notifications-description">You have no notifications yet</div>
+				</div>
+			</div>
+			<div class="account-user flex align-center button-account chevron-down dropdown-control">
+				<div class="account-user__avatar" style="background: url({{ asset('img/avatar.png') }}) center / cover no-repeat"></div>
+				<div class="account-user__name">{{ app.user.fullName }}</div>
+				<div class="dropdown dropdown-right">
+					<div class="dropdown-lks flex flex-column">
+						<a class="flex align-center" href="{{ path('settings_profile') }}"><img src="{{ asset('img/icons/profile.svg') }}" alt="Profile">Edit profile</a>
+						<a class="flex align-center" href="#"><img src="{{ asset('img/icons/payment.svg') }}" alt="Payments">Billing & Payments</a>
+						<a class="flex align-center" href="#"><img src="{{ asset('img/icons/refferal.svg') }}" alt="Referral">Referral Program</a>
+					</div>
+					<div class="theme flex align-center justify-between">
+						Dark theme
+						<div class="switcher dark"></div>
+					</div>
+					<a href="#" class="language flex align-center justify-between">
+						Language
+						<img src="{{ asset('img/icons/uk.svg') }}" alt="uk">
+					</a>
+					<a href="{{ path('app_logout') }}" class="logout flex align-center justify-center">
+						<img src="{{ asset('img/icons/logout.svg') }}" alt="logout">
+						Log out
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

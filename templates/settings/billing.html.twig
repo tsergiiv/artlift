@@ -1,0 +1,144 @@
+{% extends 'settings.html.twig' %}
+
+{% block title %}Hello SettingsController!{% endblock %}
+
+{% block body %}
+	
+	<div class="main-wrapper default-card">
+		<div class="settings-form m-auto">
+			<div class="settings-title">Billing & Payments</div>
+			<div class="divider-dark divider-small"></div>
+			<div class="section-title">Current subscriptions</div>
+			<div class="current-subscriptions">
+				{% for sub in subs %}
+				<div class="button button-connect dribbble justify-start active">
+					<span>Dribbble</span>&nbsp;pro boost <a href="{{ path('cancel_sub', {subId: sub.id}) }}" data-toggle="modal-cancel" class="modal-toggle button button-small ml-auto">Cancel subscription</a>
+				</div>
+				<span>Your next payment of ${{ sub.amount }} occurs on December 24, 2020.</span>
+				{% endfor %}
+			</div>
+			<ul class="current-boosts list-unstyled flex flex-column">
+				{% for shot in shots %}
+				<li class="current-boosts__item flex align-center">
+					<div class="current-boosts__image"><img src="../img/{{ shot.image }}" class="img-fluid" alt="Preview"></div>
+					<div class="current-boosts__title">Boost shot</div>
+					<a href="{{ path('cancel_shot',{shotId: shot.id}) }}" data-toggle="modal-cancel-boost" class="modal-toggle button button-small _grey ml-auto">Cancel</a>
+				</li>
+				{% endfor %}
+			</ul>
+			<div class="divider-dark mb-1"></div>
+			<div class="section-title">Order History</div>
+			<div class="orders-table">
+				<div class="list-table__heading grid align-center">
+					<div class="table-item__heading">Date:</div>
+					<div class="table-item__heading">Payment type:</div>
+					<div class="table-item__heading">Receipt:</div>
+				</div>
+				<div class="bordered-table">
+					{% for order in orderSub %}
+					<div class="list-table__item grid align-center">
+						<div class="table-item__text">{{ order.date }}</div>
+						<div class="table-item__text">Dribbble Pro Boost</div>
+						<div class="table-item__buttons flex">
+							<a href="assets/files/test.html" class="button button-small _grey" download="test">HTML</a>
+							<a href="assets/files/test.pdf" class="button button-small _grey" download="test">PDF</a>
+						</div>
+					</div>
+					{% endfor %}
+					{% for order in orderShot %}
+					<div class="list-table__item grid align-center">
+						<div class="table-item__text">{{ order.date }}</div>
+						<div class="table-item__text">Behance Shot Boost</div>
+						<div class="table-item__buttons flex">
+							<a href="assets/files/test.html" class="button button-small _grey" download="test">HTML</a>
+							<a href="assets/files/test.pdf" class="button button-small _grey" download="test">PDF</a>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="divider-dark mb-1"></div>
+			<div class="section-title flex justify-between">
+				Payment Method
+				<a href="#" class="link-sm">Add New Payment Method</a>
+			</div>
+			<div class="payments-table">
+				<div class="bordered-table">
+					<div class="list-table__item flex justify-between align-center">
+						<div class="table-item__text">MasterCard</div>
+						<div class="table-item__text">**** 1954</div>
+						<div class="table-item__buttons flex">
+							<a href="#" class="button button-small _grey">Delete</a>
+						</div>
+					</div>
+					<div class="list-table__item flex justify-between align-center">
+						<div class="table-item__text">MasterCard</div>
+						<div class="table-item__text">**** 1954</div>
+						<div class="table-item__buttons flex">
+							<a href="#" class="button button-small _grey">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="divider-dark mb-1"></div>
+			<div class="section-title flex justify-between">
+				Billing Address
+				<a href="#" class="link-sm">Add New Billing Address</a>
+			</div>
+			<div class="billings-table">
+				<div class="bordered-table">
+					<div class="list-table__item flex justify-between">
+						<div class="table-item__text">
+							Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+							sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+							sed diam voluptua.
+						</div>
+						<div class="table-item__buttons flex">
+							<a href="#" class="button button-small _grey">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+
+{% block modals %}
+	
+	<div id="modal-cancel" class="modal m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-image cancel"></div>
+		<div class="modal-title text-center">Are you sure to cancel subscription?</div>
+		<div class="modal-description text-center">All promotions will be discontinued</div>
+		<div class="divider-dark"></div>
+		<div class="btn-group modal-btn__group grid">
+			<a href="#" id="cancel" class="button button-grey text-center">Yes</a>
+			<a href="#" class="button button-default text-center modal-close">No</a>
+		</div>
+	</div>
+	<div id="modal-cancel-boost" class="modal m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-image cancel"></div>
+		<div class="modal-title text-center">Are you sure to cancel boost shot?</div>
+		<div class="divider-dark"></div>
+		<div class="btn-group modal-btn__group grid">
+			<a href="#" id="cancel2" class="button button-grey text-center">Yes</a>
+			<a href="#" class="button button-default text-center modal-close">No</a>
+		</div>
+	</div>
+	<div id="modal-cancel-success" class="modal m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="button button-connect dribbble justify-center active">
+			<span>Dribbble</span>&nbsp;pro boost
+		</div>
+		<div class="modal-title text-center">Your subscription has been canceled</div>
+		<div class="modal-description text-center">All promotions be discontinued</div>
+		<div class="divider-dark"></div>
+		<div class="btn-group modal-btn__group grid">
+			<a href="#" class="button button-default button-grey text-center">Cancel</a>
+			<a href="#" class="button button-default text-center modal-close">Ok</a>
+		</div>
+	</div>
+	
+{% endblock %}

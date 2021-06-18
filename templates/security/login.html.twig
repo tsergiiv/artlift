@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="login-left">
+            <div class="logo"></div>
+            <h1>Welcome to ARTLIFT <span>ai</span></h1>
+            <form method="post" id="login-form">
+    
+                {% if error %}
+                    <div class="title-description">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if error_type %}
+                    <div class="title-description">{{ error_type == 1 ? 'There is already an account with this email' : '' }}</div>
+                {% endif %}
+                
+                <div class="form-group">
+                    <input class="input-default" id="email" type="email" name="email" value="{{ last_username }}" required>
+                    <label for="inputEmail">Email address</label>
+                    <div class="error-tip">Wrong format</div>
+                </div>
+                <div class="form-group password-group">
+                    <input class="input-default" id="password" type="password" name="password" required>
+                    <label for="inputPassword">Password</label>
+                    <div class="error-tip">Wrong password</div>
+                    <div class="form-show"></div>
+                </div>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+                <div class="form-group-custom">
+                    <div class="form-group checkbox-group">
+                        <input id="remember" type="checkbox" name="_remember_me">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a class="link-sm" href="{{ path('app_forgot_password_request') }}">Forgot password ?</a>
+                </div>
+                <div class="divider-dark"></div>
+                <div class="btn-group">
+                    <button class="button button-default" id="submit-btn" type="submit">Log in</button>
+                </div>
+                <div class="social-divider"><span>Or Log in with</span></div>
+                <div class="social-buttons__group">
+                    <a href="{{ path('connect_google_start') }}" class="button button-bordered"><img src="{{ asset('img/icons/google.svg') }}">Google</a>
+                    <a href="{{ path('connect_facebook_start') }}" class="button button-bordered"><img src="{{ asset('img/icons/facebook.svg') }}">Facebook</a>
+                </div>
+            </form>
+            <div class="link-group">
+                <span>Don’t have an account?</span>&nbsp;<a class="link-sm" href="{{ path('app_register') }}">Register Now</a>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-carousel owl-carousel">
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-1.png') }}" alt="Banner 1">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+                <div class="login-carousel__item waves">
+                    <div class="login-carousel__item-img">
+                        <img src="{{ asset('img/banners/banner-2.png') }}" alt="Banner 2">
+                    </div>
+                    <div class="login-carousel__item-name">
+                        Mass likes and subscriptions -the most profitable way attracting subscribers and сustomers.
+                    </div>
+                    <div class="login-carousel__item-desc">
+                        Start getting massive engagement from real people on Dribbble with the best in class grows automation tools
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block footer_scripts %}
+    
+    <script>
+        $('#submit-btn').click(function (e) {
+            e.preventDefault();
+            
+            let email = checkField('email');
+            let password = checkField('password');
+            
+            if (!email || !password) {
+                return false;
+            }
+            
+            console.log('submitting...');
+            
+            $('#login-form').submit();
+        });
+    </script>
+
+{% endblock %}
