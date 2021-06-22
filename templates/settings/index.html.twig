@@ -5,16 +5,27 @@
 {% block body %}
 	<div class="main-wrapper default-card">
 		<div class="settings-form m-auto">
+
 			<div class="settings-title">Profile settings</div>
+
+			<div class="title-description">
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						{{ message }}
+					{% endfor %}
+				{% endfor %}
+			</div>
+
 			<form method="post" id="settings-profile-form">
+				<input type="text" name="action" value="save-changed" hidden>
 				<div class="form-group flex flex-column">
-					<input class="input-default" id="full-name" type="text" name="username" value="{{ app.user.fullName }}">
+					<input class="input-default settings-input" id="full-name" type="text" name="username" value="{{ app.user.fullName }}">
 					<label for="username">Username</label>
 					<div class="error-tip">Wrong format</div>
 					<span class="settings-tip">Used for messege you correctly</span>
 				</div>
 				<div class="form-group flex flex-column">
-					<input class="input-default" id="email" type="email" name="email" value="{{ app.user.email }}">
+					<input class="input-default settings-input" id="email" type="email" name="email" value="{{ app.user.email }}">
 					<label for="email">Email address</label>
 					<div class="error-tip">Wrong format</div>
 					<span class="settings-tip">Please enter the email associated to your Dribbble account</span>
@@ -24,16 +35,21 @@
 
 				<div class="section-title">Password</div>
 				<div class="form-group password-group">
-					<input class="input-default" id="old-password" type="password" name="old-password">
+					<input class="input-default settings-input" id="old-password" type="password" name="old-password">
 					<label for="old-password">Old password</label>
 					<div class="error-tip">Wrong password</div>
 					<div class="form-show"></div>
 				</div>
 				<div class="form-group password-group">
-					<input class="input-default" id="new-password" type="password" name="password">
+					<input class="input-default settings-input" id="new-password" type="password" name="password">
 					<label for="password">Password</label>
 					<div class="error-tip">Wrong password</div>
 					<div class="form-show"></div>
+				</div>
+				<div id="strength">
+					<div></div>
+					<div></div>
+					<div></div>
 				</div>
 				<ul class="list-unstyled restore-list">
 					<li>At least 8 characters</li>
@@ -41,7 +57,7 @@
 					<li>Both uppercase and lowercase letters</li>
 				</ul>
 				<div class="btn-group">
-					<button class="button button-default" id="save-changes-btn" type="submit">Save changes</button>
+					<button class="button button-default" id="save-changes-btn" type="submit" disabled>Save changes</button>
 				</div>
 			</form>
 			<div class="divider-dark"></div>
@@ -108,13 +124,53 @@
 
 {% block footer_scripts %}
 	<script>
-		$('#save-changes-btn').click(function (e) {
+		let init_email = '{{ app.user.email }}';
+		let init_full_name = '{{ app.user.fullName }}';
+		let id_email = 'email';
+		let id_full_name = 'full-name';
+		let id_old_password = 'old-password';
+		let id_new_password = 'new-password';
+		let id_save_btn = 'save-changes-btn';
+
+		$('.settings-input').on('keyup', function() {
+			let is_changed = isChanged();
+
+			if (is_changed) {
+				$('#' + id_save_btn).attr('disabled', false);
+			} else {
+				$('#' + id_save_btn).attr('disabled', true);
+			}
+		});
+
+		function isChanged() {
+			let full_name = $('#' + id_full_name).val();
+			let email = $('#' + id_email).val();
+			let old_password = $('#' + id_old_password).val();
+			let new_password = $('#' + id_new_password).val();
+
+			if (full_name != init_full_name) {
+				return true;
+			}
+
+			if (email != init_email) {
+				return true;
+			}
+
+			if (old_password || new_password) {
+				return true;
+			}
+
+			return false;
+		}
+
+		$('#' + id_save_btn).click(function (e) {
 			e.preventDefault();
 
-			let fullName = checkField('full-name');
-			let email = checkField('email');
-			let oldPassword = checkField('old-password');
-			let newPassword = checkField('new-password');
+			let fullName = checkField(id_full_name);
+			let email = checkField(id_email);
+			let is_password_changed = $('#' + id_old_password).val() || $('#' + id_new_password).val();
+			let oldPassword = is_password_changed ? checkField(id_old_password) : true;
+			let newPassword = is_password_changed ? checkField(id_new_password) : true;
 
 			if (!fullName || !email || !oldPassword || !newPassword) {
 				return false;

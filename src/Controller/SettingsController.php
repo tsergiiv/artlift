@@ -11,15 +11,60 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 class SettingsController extends AbstractController
 {
     /**
      * @Route("/settings/profile", name="settings_profile")
      */
-    public function index(): Response
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        $action = $request->get('action') ?? null;
+        $fullName = $request->get('username') ?? null;
+        $email = $request->get('email') ?? null;
+        $oldPassword = $request->get('old-password') ?? null;
+        $newPassword = $request->get('password') ?? null;
+
+        $error = false;
+        if ($action == 'save-changed') {
+            $user = $this->getUser();
+            $em = $this->getDoctrine()->getManager();
+
+            // update email address
+            if ($email != $user->getEmail()) {
+                // check the user with the email does not exist
+                $is_user_exist = $em->getRepository(User::class)->findOneByEmail($email) ?? null;
+
+                if ($is_user_exist) {
+                    $error = true;
+                    $this->addFlash('error', $this->getParameter('user_exists_message'));
+                } else {
+                    $user->setEmail($email);
+                }
+            }
+
+            $user->setFullName($fullName);
+
+            if ($oldPassword && $newPassword) {
+                if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
+                    $encodedPassword = $passwordEncoder->encodePassword($user, $newPassword);
+                    $user->setPassword($encodedPassword);
+                } else {
+                    $error = true;
+                    $this->addFlash('error', 'Old password is incorrect');
+                }
+            }
+
+            if (!$error) {
+                $this->addFlash('success', 'The changes were saved');
+                $em->flush();
+            }
+        }
+
         return $this->render('settings/index.html.twig', [
             'controller_name' => 'SettingsController',
         ]);

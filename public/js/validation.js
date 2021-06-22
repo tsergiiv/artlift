@@ -4,6 +4,11 @@ function checkField(id) {
     let t = $(e).prop('type');
     let p = $(e).closest('.form-group')
 
+    if (v === '' || v === '0' || v === 0) {
+        addError(p);
+        return false;
+    }
+
     if (t !== 'undefined' && t !== 'select-one') {
         v = v.trim();
     }
@@ -24,11 +29,6 @@ function checkField(id) {
     }
 
     if (id == 'full-name' && !checkFullName(v)) {
-        addError(p);
-        return false;
-    }
-
-    if (v === '' || v === '0' || v === 0) {
         addError(p);
         return false;
     }
@@ -86,7 +86,7 @@ function checkCheckbox(id) {
 }
 
 function сheckPasswordStrength(password) {
-    let strength = $("#strength");
+    let strength = $('#strength');
 
     // if textBox is empty
     if (password.length == 0){
