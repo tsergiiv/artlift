@@ -111,9 +111,12 @@
 		<div class="modal-description text-center">All account information will be lost!</div>
 		<div class="divider-dark"></div>
 		<div class="btn-group modal-btn__group grid">
-			<a href="#" class="button button-grey text-center">Close Account</a>
+			<a href="#" class="button button-grey text-center" id="close-account-btn">Close Account</a>
 			<a href="#" class="button button-default text-center modal-close">Cancel</a>
 		</div>
+		<form method="post" id="close-account-form">
+			<input type="text" name="action" value="close-account" hidden>
+		</form>
 	</div>
 	<div id="modal-cancel-connected" class="modal m-auto">
 		<a href="#" class="button-close modal-close"></a>
@@ -193,6 +196,11 @@
 		// logout from Dribbble account action
 		$('#logout-dribbble-btn').click(function() {
 			$('#logout-dribbble-form').submit();
+		});
+
+		// close account action
+		$('#close-account-btn').click(function() {
+			$('#close-account-form').submit();
 		});
 	</script>
 {% endblock %}

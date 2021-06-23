@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use App\Repository\DribbbleShotTaskRepository;
 use App\Repository\DribbleSubscriptionTaskRepository;
@@ -15,13 +16,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SettingsController extends AbstractController
 {
     /**
      * @Route("/settings/profile", name="settings_profile")
      */
-    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function index(Request $request,
+                          UserPasswordEncoderInterface $passwordEncoder,
+                          SessionInterface $session): Response
     {
         $action = $request->get('action') ?? null;
         $fullName = $request->get('username') ?? null;
@@ -71,6 +75,25 @@ class SettingsController extends AbstractController
             $user->setDribbbleLogin(null);
             $user->setDribbblePassword(null);
             $em->flush();
+        // close account data
+        } else if ($action == 'close-account') {
+            // remove data from database
+            $reset_password_requests = $em->getRepository(ResetPasswordRequest::class)
+                ->findBy(['user' => $user]);
+
+            foreach ($reset_password_requests  as $reset_password_request) {
+                $em->remove($reset_password_request);
+            }
+
+            $this->get('security.token_storage')->setToken(null);
+            $session->invalidate(0);
+
+            $em->remove($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Your account was closed');
+
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('settings/index.html.twig', [
