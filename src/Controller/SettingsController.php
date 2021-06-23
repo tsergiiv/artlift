@@ -29,11 +29,12 @@ class SettingsController extends AbstractController
         $oldPassword = $request->get('old-password') ?? null;
         $newPassword = $request->get('password') ?? null;
 
-        $error = false;
-        if ($action == 'save-changed') {
-            $user = $this->getUser();
-            $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
 
+        $error = false;
+        // update fullName, email, and password
+        if ($action == 'save-changed') {
             // update email address
             if ($email != $user->getEmail()) {
                 // check the user with the email does not exist
@@ -47,8 +48,10 @@ class SettingsController extends AbstractController
                 }
             }
 
+            // update fullName
             $user->setFullName($fullName);
 
+            // update password
             if ($oldPassword && $newPassword) {
                 if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
                     $encodedPassword = $passwordEncoder->encodePassword($user, $newPassword);
@@ -63,6 +66,11 @@ class SettingsController extends AbstractController
                 $this->addFlash('success', 'The changes were saved');
                 $em->flush();
             }
+        // erase dribbble account data
+        } else if ($action == 'logout-dribbble') {
+            $user->setDribbbleLogin(null);
+            $user->setDribbblePassword(null);
+            $em->flush();
         }
 
         return $this->render('settings/index.html.twig', [

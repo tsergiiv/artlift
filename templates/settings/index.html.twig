@@ -64,10 +64,16 @@
 			<form method="post">
 				<div class="section-title">Connected accounts</div>
 				<div class="form-group form-connect">
-					<input class="input-default" id="dribbble" type="text" name="dribbble" value="https://dribbble.com/Montycor" disabled>
+					<input class="input-default" id="dribbble" type="text" name="dribbble" value="{{ app.user.dribbbleLogin }}" disabled>
 					<label for="dribbble">Dribbble</label>
 					<div class="error-tip">Wrong format</div>
-					<div data-toggle="modal-cancel-connected" class="modal-toggle form-exit"></div>
+					{% if app.user.dribbbleLogin %}
+						<div data-toggle="modal-cancel-connected" class="modal-toggle form-exit"></div>
+					{% else %}
+						<a href="{{ path('dashboard') }}">
+							<div class="form-add"></div>
+						</a>
+					{% endif %}
 				</div>
 				<div class="form-group form-connect">
 					<input class="input-default" id="behance" type="text" name="behance" value="Soon" disabled>
@@ -112,12 +118,15 @@
 	<div id="modal-cancel-connected" class="modal m-auto">
 		<a href="#" class="button-close modal-close"></a>
 		<div class="modal-image cancel"></div>
-		<div class="modal-title text-center">Are you shure to delete connected Dribbble account <span>boro_uiux</span>?</div>
+		<div class="modal-title text-center">Are you shure to delete connected Dribbble account <span>{{ app.user.dribbbleLogin }}</span>?</div>
 		<div class="divider-dark"></div>
 		<div class="btn-group modal-btn__group grid">
-			<a href="#" class="button button-grey text-center">Yes</a>
+			<a href="#" class="button button-grey text-center" id="logout-dribbble-btn">Yes</a>
 			<a href="#" class="button button-default text-center modal-close">No</a>
 		</div>
+		<form method="post" id="logout-dribbble-form">
+			<input type="text" name="action" value="logout-dribbble" hidden>
+		</form>
 	</div>
 
 {% endblock %}
@@ -132,6 +141,7 @@
 		let id_new_password = 'new-password';
 		let id_save_btn = 'save-changes-btn';
 
+		// action when there are any changes in fullName, email, or password fields
 		$('.settings-input').on('keyup', function() {
 			let is_changed = isChanged();
 
@@ -142,6 +152,7 @@
 			}
 		});
 
+		// check whether fullName, email, or password was changed
 		function isChanged() {
 			let full_name = $('#' + id_full_name).val();
 			let email = $('#' + id_email).val();
@@ -163,6 +174,7 @@
 			return false;
 		}
 
+		// save changes to fullName, email, and password action
 		$('#' + id_save_btn).click(function (e) {
 			e.preventDefault();
 
@@ -175,12 +187,12 @@
 			if (!fullName || !email || !oldPassword || !newPassword) {
 				return false;
 			}
-
-			console.log('submitting...');
-
 			$('#settings-profile-form').submit();
+		});
 
-			console.log('click');
+		// logout from Dribbble account action
+		$('#logout-dribbble-btn').click(function() {
+			$('#logout-dribbble-form').submit();
 		});
 	</script>
 {% endblock %}
