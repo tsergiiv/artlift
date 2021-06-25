@@ -38,19 +38,25 @@ class DribbleSubscriptionTask
     private $user_id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $sub_id;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="subscriptions")
      */
     private $user;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
-    private $start_date;
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $finishDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Subscription::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sub;
 
     public function getId(): ?int
     {
@@ -105,18 +111,6 @@ class DribbleSubscriptionTask
         return $this;
     }
 
-    public function getSubId(): ?int
-    {
-        return $this->sub_id;
-    }
-
-    public function setSubId(int $sub_id): self
-    {
-        $this->sub_id = $sub_id;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -131,12 +125,36 @@ class DribbleSubscriptionTask
 
     public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->start_date;
+        return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeInterface $start_date): self
+    public function setStartDate(\DateTimeInterface $startDate): self
     {
-        $this->start_date = $start_date;
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getFinishDate(): ?\DateTimeInterface
+    {
+        return $this->finishDate;
+    }
+
+    public function setFinishDate(\DateTimeInterface $finishDate): self
+    {
+        $this->finishDate = $finishDate;
+
+        return $this;
+    }
+
+    public function getSub(): ?Subscription
+    {
+        return $this->sub;
+    }
+
+    public function setSub(?Subscription $sub): self
+    {
+        $this->sub = $sub;
 
         return $this;
     }

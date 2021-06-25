@@ -26,17 +26,6 @@ $(document).ready(function(){
             $('.dropdown-control').removeClass('active');
         }
     });
-    $('body').on('click', '.modal-toggle', function(e){
-        let modal = $(this).attr('data-toggle');
-        let link = $(this).attr("href");
-        $(document).find('#cancel').attr('href',link);
-        $(document).find('#cancel2').attr('href',link);
-
-        $(document).find('#' + modal).fadeIn(300);
-        $('body').addClass('modal-open');
-        $('<div class="backdrop"></div>').hide().appendTo('body').fadeIn(300);
-        e.preventDefault();
-    });
     $('body').on('click', '.backdrop', function(){
         $('body').removeClass('modal-open');
         $(document).find('.modal').fadeOut(300);
@@ -46,6 +35,17 @@ $(document).ready(function(){
         $('body').removeClass('modal-open');
         $('.backdrop').fadeOut(300);
         $(this).parents('.modal').fadeOut(300);
+        e.preventDefault();
+    });
+    $('body').on('click', '.modal-toggle', function(e){
+        let modal = $(this).attr('data-toggle');
+        let link = $(this).attr("href");
+        $(document).find('#cancel').attr('href',link);
+        $(document).find('#cancel2').attr('href',link);
+
+        $(document).find('#' + modal).fadeIn(300);
+        $('body').addClass('modal-open');
+        $('<div class="backdrop"></div>').hide().appendTo('body').fadeIn(300);
         e.preventDefault();
     });
     $('body').on('click', '.column-flow__title', function(){

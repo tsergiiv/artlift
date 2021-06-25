@@ -20,6 +20,7 @@ var createCheckoutSession = function (stripe) {
             user_id: user_id
         }),
     }).then(function (result) {
+        // console.log(result);
         return result.json();
     });
 };
@@ -53,6 +54,7 @@ var createCheckoutSessionShot = function (stripe) {
             user_id: user_id,
         }),
     }).then(function (result) {
+        console.log(result);
         return result.json();
     });
 };

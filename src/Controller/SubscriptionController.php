@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\DribbleSubscriptionTask;
 use App\Entity\Subscription;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,16 @@ class SubscriptionController extends AbstractController
     public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
+
+//        $task = new DribbleSubscriptionTask();
+//        $task->setAmount(1000 / 100);
+//        $task->setPayed(0);
+//        $task->setSubId(1);
+//        $task->setUser($this->getUser());
+//        $task->setUserId(2);
+//        $task->setSessionId("!231231235ljkhaljkhdlfkjahsldkjhfalkhlu4h3iufhkjhduf");
+//        $em->persist($task);
+//        $em->flush();
 
         $subscriptions = $em->getRepository(Subscription::class)
             ->findBy(['is_shot' => false]);

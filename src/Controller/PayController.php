@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\DribbbleShotTask;
 use App\Entity\DribbleSubscriptionTask;
+use App\Entity\Shots;
+use App\Entity\Subscription;
 use App\Entity\User;
 use App\Repository\DribbbleShotTaskRepository;
 use App\Repository\DribbleSubscriptionTaskRepository;
@@ -29,7 +31,7 @@ class PayController extends AbstractController
         $task->setAmmount($amount / 100);
         $task->setPayed(0);
         $task->setCountLikes($body->likes);
-        $task->setShot($body->shot);
+        $task->setShot($em->getRepository(Shots::class)->find($body->shot));
         $task->setCountComments($body->comments);
         $task->setUser($urep->find($body->user_id));
         $task->setPayDate(new \DateTime());
@@ -95,9 +97,11 @@ class PayController extends AbstractController
 
         $task->setAmount($amount / 100);
         $task->setPayed(0);
-        $task->setSubId($body->sub_id);
+        $task->setSub($em->getRepository(Subscription::class)->find($body->sub_id));
         $task->setUser($user);
         $task->setUserId($body->user_id);
+        $task->setStartDate(new \DateTime());
+        $task->setFinishDate(new \DateTime());
 
         $result = $pay->createSession(
             $this->getParameter("stripe_secret_key"),
@@ -111,6 +115,7 @@ class PayController extends AbstractController
         $em->persist($task);
         $em->flush();
 
+//        return new JsonResponse(['test' => "123"], JsonResponse::HTTP_OK);;
         return $result['response'];
     }
 

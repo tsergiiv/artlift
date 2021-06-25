@@ -3,60 +3,73 @@
 {% block title %}Hello SettingsController!{% endblock %}
 
 {% block body %}
-	
+
 	<div class="main-wrapper default-card">
 		<div class="settings-form m-auto">
 			<div class="settings-title">Billing & Payments</div>
 			<div class="divider-dark divider-small"></div>
 			<div class="section-title">Current subscriptions</div>
-			<div class="current-subscriptions">
-				{% for sub in subs %}
-				<div class="button button-connect dribbble justify-start active">
-					<span>Dribbble</span>&nbsp;pro boost <a href="{{ path('cancel_sub', {subId: sub.id}) }}" data-toggle="modal-cancel" class="modal-toggle button button-small ml-auto">Cancel subscription</a>
-				</div>
-				<span>Your next payment of ${{ sub.amount }} occurs on December 24, 2020.</span>
-				{% endfor %}
-			</div>
-			<ul class="current-boosts list-unstyled flex flex-column">
-				{% for shot in shots %}
-				<li class="current-boosts__item flex align-center">
-					<div class="current-boosts__image"><img src="../img/{{ shot.image }}" class="img-fluid" alt="Preview"></div>
-					<div class="current-boosts__title">Boost shot</div>
-					<a href="{{ path('cancel_shot',{shotId: shot.id}) }}" data-toggle="modal-cancel-boost" class="modal-toggle button button-small _grey ml-auto">Cancel</a>
-				</li>
-				{% endfor %}
-			</ul>
+			{% if subs or shots %}
+				{% if subs %}
+					<div class="current-subscriptions">
+						{% for s in subs %}
+							<div class="button button-connect dribbble justify-start active">
+								<span>Dribbble</span>&nbsp;pro boost <a href="#" data-toggle="modal-cancel" data-id="{{ s.id }}" class="modal-toggle button button-small ml-auto show-cancel-sub-btn">Cancel subscription</a>
+							</div>
+							<span>Your next payment of ${{ s.sub.price }} ({{ s.sub.name }}) occurs on {{ s.finishDate | date('d M, Y') }}.</span>
+						{% endfor %}
+					</div>
+				{% endif  %}
+
+				{% if shots %}
+					<ul class="current-boosts list-unstyled flex flex-column">
+						{% for s in shots %}
+							<li class="current-boosts__item flex align-center">
+								<div class="current-boosts__image"><img src="{{ asset('img/' ~ s.shot.image) }}" class="img-fluid" alt="Preview"></div>
+								<div class="current-boosts__title">Boost shot</div>
+								<a href="#" data-toggle="modal-cancel-boost" data-id="{{ s.id }}" class="modal-toggle button button-small _grey ml-auto show-cancel-shot-btn">Cancel</a>
+							</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% else %}
+				<p>You haven't got any subscriptions yet</p>
+			{% endif %}
 			<div class="divider-dark mb-1"></div>
 			<div class="section-title">Order History</div>
-			<div class="orders-table">
-				<div class="list-table__heading grid align-center">
-					<div class="table-item__heading">Date:</div>
-					<div class="table-item__heading">Payment type:</div>
-					<div class="table-item__heading">Receipt:</div>
-				</div>
-				<div class="bordered-table">
-					{% for order in orderSub %}
-					<div class="list-table__item grid align-center">
-						<div class="table-item__text">{{ order.date }}</div>
-						<div class="table-item__text">Dribbble Pro Boost</div>
-						<div class="table-item__buttons flex">
-							<a href="assets/files/test.html" class="button button-small _grey" download="test">HTML</a>
-							<a href="assets/files/test.pdf" class="button button-small _grey" download="test">PDF</a>
-						</div>
+			{% if orderSub or orderShot %}
+				<div class="orders-table">
+					<div class="list-table__heading grid align-center">
+						<div class="table-item__heading">Date:</div>
+						<div class="table-item__heading">Payment type:</div>
+						<div class="table-item__heading">Receipt:</div>
 					</div>
-					{% endfor %}
-					{% for order in orderShot %}
-					<div class="list-table__item grid align-center">
-						<div class="table-item__text">{{ order.date }}</div>
-						<div class="table-item__text">Behance Shot Boost</div>
-						<div class="table-item__buttons flex">
-							<a href="assets/files/test.html" class="button button-small _grey" download="test">HTML</a>
-							<a href="assets/files/test.pdf" class="button button-small _grey" download="test">PDF</a>
-						</div>
+					<div class="bordered-table">
+						{% for o in orderSub %}
+							<div class="list-table__item grid align-center">
+								<div class="table-item__text">{{ o.startDate | date('M d, Y') }}</div>
+								<div class="table-item__text">Dribbble Pro Boost</div>
+								<div class="table-item__buttons flex">
+									<a href="{{ asset('files/test.html') }}" class="button button-small _grey" download="test">HTML</a>
+									<a href="{{ asset('files/test.pdf') }}" class="button button-small _grey" download="test">PDF</a>
+								</div>
+							</div>
+						{% endfor %}
+						{% for o in orderShot %}
+							<div class="list-table__item grid align-center">
+								<div class="table-item__text">{{ o.payDate | date('M d, Y') }}</div>
+								<div class="table-item__text">Shot Boost</div>
+								<div class="table-item__buttons flex">
+									<a href="{{ asset('files/test.html') }}" class="button button-small _grey" download="test">HTML</a>
+									<a href="{{ asset('files/test.pdf') }}" class="button button-small _grey" download="test">PDF</a>
+								</div>
+							</div>
+						{% endfor %}
 					</div>
-					{% endfor %}
 				</div>
-			</div>
+			{% else %}
+				<p>You haven't got any orders yet</p>
+			{% endif %}
 			<div class="divider-dark mb-1"></div>
 			<div class="section-title flex justify-between">
 				Payment Method
@@ -113,9 +126,13 @@
 		<div class="modal-description text-center">All promotions will be discontinued</div>
 		<div class="divider-dark"></div>
 		<div class="btn-group modal-btn__group grid">
-			<a href="#" id="cancel" class="button button-grey text-center">Yes</a>
+			<a href="#" id="cancel-sub-boost-btn" class="button button-grey text-center">Yes</a>
 			<a href="#" class="button button-default text-center modal-close">No</a>
 		</div>
+		<form method="post" id="cancel-sub-boost-form">
+			<input type="text" name="action" value="cancel-sub-boost" hidden>
+			<input type="text" id="sub-id" name="sub-id" value="-1" hidden>
+		</form>
 	</div>
 	<div id="modal-cancel-boost" class="modal m-auto">
 		<a href="#" class="button-close modal-close"></a>
@@ -123,9 +140,13 @@
 		<div class="modal-title text-center">Are you sure to cancel boost shot?</div>
 		<div class="divider-dark"></div>
 		<div class="btn-group modal-btn__group grid">
-			<a href="#" id="cancel2" class="button button-grey text-center">Yes</a>
+			<a href="#" id="cancel-shot-boost-btn" class="button button-grey text-center">Yes</a>
 			<a href="#" class="button button-default text-center modal-close">No</a>
 		</div>
+		<form method="post" id="cancel-shot-boost-form">
+			<input type="text" name="action" value="cancel-shot-boost" hidden>
+			<input type="text" id="shot-sub-id" name="shot-sub-id" value="-1" hidden>
+		</form>
 	</div>
 	<div id="modal-cancel-success" class="modal m-auto">
 		<a href="#" class="button-close modal-close"></a>
@@ -140,5 +161,42 @@
 			<a href="#" class="button button-default text-center modal-close">Ok</a>
 		</div>
 	</div>
+
+	<input type="button" id="show-modal" data-toggle="modal-cancel-success" class="modal-toggle" hidden>
 	
+{% endblock %}
+
+{% block footer_scripts %}
+
+	<script>
+		// cancel subscription boost action
+		$('#cancel-sub-boost-btn').click(function() {
+			$('#cancel-sub-boost-form').submit();
+		});
+
+		$('.show-cancel-sub-btn').click(function() {
+			let id = $(this).data('id');
+			$('#sub-id').val(id);
+		});
+
+		// cancel shot boost action
+		$('#cancel-shot-boost-btn').click(function() {
+			$('#cancel-shot-boost-form').submit();
+		});
+
+		$('.show-cancel-shot-btn').click(function() {
+			let id = $(this).data('id');
+			$('#shot-sub-id').val(id);
+		});
+
+		$(document).ready(function() {
+			{% if cancel_sub_boost %}
+				// show modal after page is reloaded
+				setTimeout(function() {
+					$('#show-modal').click();
+				}, 500);
+			{% endif %}
+		});
+	</script>
+
 {% endblock %}

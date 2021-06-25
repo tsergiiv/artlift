@@ -39,11 +39,6 @@ class DribbbleShotTask
     private $sessionId;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $shot;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $countComments;
@@ -67,6 +62,12 @@ class DribbbleShotTask
      * @ORM\Column(type="datetime")
      */
     private $payDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Shots::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $shot;
 
     public function getId(): ?int
     {
@@ -117,18 +118,6 @@ class DribbbleShotTask
     public function setSessionId(string $sessionId): self
     {
         $this->sessionId = $sessionId;
-
-        return $this;
-    }
-
-    public function getShot(): ?string
-    {
-        return $this->shot;
-    }
-
-    public function setShot(string $shot): self
-    {
-        $this->shot = $shot;
 
         return $this;
     }
@@ -189,6 +178,18 @@ class DribbbleShotTask
     public function setPayDate(\DateTimeInterface $payDate): self
     {
         $this->payDate = $payDate;
+
+        return $this;
+    }
+
+    public function getShot(): ?Shots
+    {
+        return $this->shot;
+    }
+
+    public function setShot(?Shots $shot): self
+    {
+        $this->shot = $shot;
 
         return $this;
     }

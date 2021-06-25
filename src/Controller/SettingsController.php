@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\DribbbleShotTask;
+use App\Entity\DribbleSubscriptionTask;
 use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use App\Repository\DribbbleShotTaskRepository;
@@ -104,43 +106,64 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings/billing", name="settings_billing")
      */
-    public function billingAction(ShotsRepository $rep): Response
+    public function billingAction(Request $request, ShotsRepository $rep): Response
     {
         $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $action = $request->get('action');
+        $cancel_sub_boost = false;
+        if ($action == 'cancel-sub-boost') {
+            $sub_id = $request->get('sub-id');
+            $subscription = $em->getRepository(DribbleSubscriptionTask::class)->find($sub_id) ?? null;
+
+            if ($subscription) {
+                $subscription->setPayed(-1);
+                $em->flush();
+            }
+
+            $cancel_sub_boost = true;
+        } else if ($action == 'cancel-shot-boost') {
+            $sub_id = $request->get('shot-sub-id');
+            $subscription = $em->getRepository(DribbbleShotTask::class)->find($sub_id) ?? null;
+
+            if ($subscription) {
+                $subscription->setPayed(-1);
+                $em->flush();
+            }
+        }
+
         $data = [];
         $orderSub = [];
+        // get user dribbble boost subscriptions
         foreach ($user->getSubscriptions() as $sub) {
             if ($sub->getPayed() == 1) {
-                $item["amount"] = $sub->getAmount();
-                $item["id"] = $sub->getId();
-                $data[] = $item;
+                $data[] = $sub;
             }
-            if ($sub->getPayed() != 0) {
-                $item["id"] = $sub->getId();
-                $item['date'] = date_format(new \DateTime(), 'Y-m-d H:i:s');
-                $orderSub[] = $item;
+            if ($sub->getPayed() == -1) {
+                $orderSub[] = $sub;
             }
         }
+
         $data2 = [];
         $orderShot = [];
-        foreach ($user->getDribbbleShotTasks() as $task) {
-            if ($task->getPayed() == 1) {
-                $item["id"] = $task->getId();
-                $item["image"] = $rep->find($task->getShot())->getImage();
-                $data2[] = $item;
+        // get user shot boost subscription
+        foreach ($user->getDribbbleShotTasks() as $sub) {
+            if ($sub->getPayed() == 1) {
+                $data2[] = $sub;
             }
-            if ($task->getPayed() != 0) {
-                $item["id"] = $task->getId();
-                $item['date'] = date_format($task->getPayDate(), 'Y-m-d H:i:s');
-                $orderShot[] = $item;
+            if ($sub->getPayed() == -1) {
+                $orderShot[] = $sub;
             }
         }
+
         return $this->render('settings/billing.html.twig', [
-            'controller_name' => 'SettingsController',
-            'subs' => $data,
-            'shots' => $data2,
-            'orderSub' => $orderSub,
-            'orderShot' => $orderShot,
+            'controller_name'  => 'SettingsController',
+            'subs'             => $data,
+            'shots'            => $data2,
+            'orderSub'         => $orderSub,
+            'orderShot'        => $orderShot,
+            'cancel_sub_boost' => $cancel_sub_boost
         ]);
     }
 
