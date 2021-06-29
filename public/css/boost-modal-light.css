@@ -1,0 +1,109 @@
+.light-theme .boost-modal-body {
+  background-color: #F6F7F9;
+}
+
+.light-theme .boost-modal-close {
+  background-image: url(../img/icons/close-light.svg);
+}
+
+.light-theme .boost-modal-card {
+  background: linear-gradient(208.11deg, rgba(255, 255, 255, 0.6) 1.08%, rgba(255, 255, 255, 0.5) 92.64%);
+}
+
+.light-theme .boost-modal-img.like {
+  background-image: url(../img/icons/boost-thumb-up-light.png);
+}
+
+.light-theme .boost-modal-img.briefcase {
+  background-image: url(../img/icons/boost-briefcase-light.png);
+}
+
+.light-theme .boost-modal-img.congrats {
+  background-image: url(../img/icons/boost-congrats-light.png);
+}
+
+.light-theme .boost-modal-settings-range {
+  background-color: var(--color-divider-light);
+}
+
+.light-theme .boost-modal-settings-range[type='range']::-webkit-slider-thumb {
+  background-color: var(--color-divider-light);
+}
+
+.light-theme .boost-modal-total {
+  border-top-color: var(--color-divider-light);
+  border-bottom-color: var(--color-divider-light);
+}
+
+.light-theme .boost-modal-payment-wrap,
+.light-theme .boost-modal-chose-wrap {
+  border-color: var(--color-divider-light);
+}
+
+.light-theme .boost-modal-payment-wrap:before,
+.light-theme .boost-modal-payment-wrap:after {
+  background-color: var(--color-divider-light);
+}
+
+.light-theme .boost-modal-payment-img.apple {
+  background-image: url(../img/icons/apple-pay-light.svg)
+}
+
+.light-theme .boost-modal-payment-img.google {
+  background-image: url(../img/icons/google-pay-light.svg)
+}
+
+.light-theme .boost-modal-arrow-right {
+  background-image: url(../img/icons/payment-arrow-right-light.svg);
+}
+
+.light-theme .boost-modal-chose-elem + .boost-modal-chose-elem {
+  border-top-color: var(--color-divider-light);
+}
+
+.light-theme .boost-modal-chose-btn-wrap {
+  border-top-color: var(--color-divider-light);
+}
+
+.light-theme .modal {
+  background-color: var(--color-white);
+}
+
+.light-theme .dropdown-control:after {
+  background: url(../img/icons/chevron-down-light.svg) center / auto no-repeat, var(--color-divider-light);
+}
+
+.light-theme .dropdown {
+  background-color: var(--light-bg);
+  box-shadow: 0px 70px 100px rgba(1, 4, 5, 0.15);
+}
+
+.light-theme .modal-image.cancel {
+  background-image: url(../img/icons/modal-cancel-light.png);
+}
+
+.light-theme .modal-cancel-prev,
+.light-theme .modal-delete-payment,
+.light-theme .modal-dribble-new {
+  border-color: var(--color-divider-light); 
+}
+
+.light-theme .button-grey {
+  background-color: var(--light-bg);
+}
+
+.light-theme .button-close {
+  background: url(../img/icons/close-light.svg) center / auto no-repeat;
+}
+
+.light-theme .modal-image.bag {
+  background-image: url(../img/icons/boost-bag-light.png);
+}
+
+.light-theme .modal-image.tablet {
+  background-image: url(../img/icons/boost-tablet-light.png);
+}
+
+.light-theme .modal-image.briefcase {
+  background-image: url(../img/icons/boost-briefcase-light.png);
+}

@@ -21,22 +21,26 @@ $(document).ready(function(){
         $('.dropdown-control').removeClass('active');
         $(this).addClass('active');
     });
+
     $(document).on('click', function(e) {
         if (!$(e.target).is('.dropdown-control, .dropdown-control *')) {
             $('.dropdown-control').removeClass('active');
         }
     });
+
     $('body').on('click', '.backdrop', function(){
         $('body').removeClass('modal-open');
         $(document).find('.modal').fadeOut(300);
         $(this).fadeOut(300, function(){$(this).remove();});
     });
+
     $('body').on('click', '.modal-close', function(e){
         $('body').removeClass('modal-open');
         $('.backdrop').fadeOut(300);
         $(this).parents('.modal').fadeOut(300);
         e.preventDefault();
     });
+
     $('body').on('click', '.modal-toggle', function(e){
         let modal = $(this).attr('data-toggle');
         let link = $(this).attr("href");
@@ -48,6 +52,7 @@ $(document).ready(function(){
         $('<div class="backdrop"></div>').hide().appendTo('body').fadeIn(300);
         e.preventDefault();
     });
+
     $('body').on('click', '.column-flow__title', function(){
         $(this).parent().toggleClass('active');
         $(this).next().animate({height: 'toggle'}, 300);

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\DribbbleShotTask;
 use App\Entity\DribbleSubscriptionTask;
+use App\Entity\PaymentMethod;
 use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use App\Repository\DribbbleShotTaskRepository;
@@ -131,6 +132,33 @@ class SettingsController extends AbstractController
                 $subscription->setPayed(-1);
                 $em->flush();
             }
+        } else if ($action == 'add-payment-method') {
+            $full_name = $request->get('full-name');
+            $cvv = $request->get('cvv');
+            $card_number = str_replace(' ', '', $request->get('card-number'));
+            $expiring_date = explode('/', $request->get('expiring-date'));
+            $month = $expiring_date[0];
+            $year = $expiring_date[1];
+
+            $payment_method = new PaymentMethod();
+            $payment_method->setFullName($full_name);
+            $payment_method->setCardNumber($card_number);
+            $payment_method->setExpMonth($month);
+            $payment_method->setExpYear($year);
+            $payment_method->setCvv($cvv);
+            $payment_method->setUser($user);
+
+            $em->persist($payment_method);
+            $em->flush();
+        } else if ($action == 'delete-payment-method') {
+            $payment_method_id = $request->get('payment-method-id');
+            $payment_method = $em->getRepository(PaymentMethod::class)
+                    ->find($payment_method_id) ?? null;
+
+            if ($payment_method) {
+                $em->remove($payment_method);
+                $em->flush();
+            }
         }
 
         $data = [];
@@ -157,13 +185,18 @@ class SettingsController extends AbstractController
             }
         }
 
+        // get user payment methods
+        $paymentMethods = $em->getRepository(PaymentMethod::class)
+                ->findBy(['user' => $user]) ?? null;
+
         return $this->render('settings/billing.html.twig', [
             'controller_name'  => 'SettingsController',
             'subs'             => $data,
             'shots'            => $data2,
             'orderSub'         => $orderSub,
             'orderShot'        => $orderShot,
-            'cancel_sub_boost' => $cancel_sub_boost
+            'cancel_sub_boost' => $cancel_sub_boost,
+            'payment_methods'  => $paymentMethods,
         ]);
     }
 

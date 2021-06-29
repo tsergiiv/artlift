@@ -13,6 +13,26 @@ function checkField(id) {
         v = v.trim();
     }
 
+    if (id == 'full-name' && !checkFullName(v)) {
+        addError(p);
+        return false;
+    }
+
+    if (id == 'card-number' && !checkCardNumber(v)) {
+        addError(p);
+        return false;
+    }
+
+    if (id == 'expiring-date' && !checkExpiringDate(v)) {
+        addError(p);
+        return false;
+    }
+
+    if (id == 'cvv' && !checkCvv(v)) {
+        addError(p);
+        return false;
+    }
+
     if (t == 'email' && !checkEmail(v)) {
         addError(p);
         return false;
@@ -24,11 +44,6 @@ function checkField(id) {
     }
 
     if (t == 'checkbox' && !checkCheckbox(id)) {
-        addError(p);
-        return false;
-    }
-
-    if (id == 'full-name' && !checkFullName(v)) {
         addError(p);
         return false;
     }
@@ -81,8 +96,57 @@ function checkFullName(fullName) {
     return re.test(String(fullName).toLowerCase());
 }
 
+function checkCardNumber(cardNumber) {
+    let number = cardNumber.replace(/ /g,'');
+    const re = /^\d{16}$/;
+    return re.test(String(number));
+}
+
+function checkCvv(cvv) {
+    const re = /^\d{3}$/;
+    return re.test(String(cvv));
+}
+
 function checkCheckbox(id) {
     return $('#' + id).is(":checked");
+}
+
+// validate card expiring date
+// example of the input format 04/22
+function checkExpiringDate(date) {
+    let expiringDate = date.split('/');
+    let month = parseInt(expiringDate[0]);
+    let year = parseInt(expiringDate[1]);
+
+    if (!month || !year) {
+        return false;
+    }
+
+    let currentMonth = new Date().getMonth() + 1;
+    let currentYear = new Date().getFullYear() % 100;
+
+    if (month < 1 || month > 12) {
+        return false;
+    }
+
+    if (year < currentYear) {
+        return false;
+    }
+
+    // check condition that the date is at least 3 month after today
+    let diff = getDatesDiffInMonth(month, year, currentMonth, currentYear);
+    if (diff < 3) {
+        return false;
+    }
+
+    return true;
+}
+
+function getDatesDiffInMonth(month1, year1, month2, year2) {
+    let a = year1 * 12 + month1;
+    let b = year2 * 12 + month2;
+
+    return a - b;
 }
 
 function сheckPasswordStrength(password) {

@@ -73,26 +73,25 @@
 			<div class="divider-dark mb-1"></div>
 			<div class="section-title flex justify-between">
 				Payment Method
-				<a href="#" class="link-sm">Add New Payment Method</a>
+				<a href="#" data-toggle="modal-addNewCard" class="modal-toggle link-sm">Add New Payment Method</a>
 			</div>
-			<div class="payments-table">
-				<div class="bordered-table">
-					<div class="list-table__item flex justify-between align-center">
-						<div class="table-item__text">MasterCard</div>
-						<div class="table-item__text">**** 1954</div>
-						<div class="table-item__buttons flex">
-							<a href="#" class="button button-small _grey">Delete</a>
-						</div>
-					</div>
-					<div class="list-table__item flex justify-between align-center">
-						<div class="table-item__text">MasterCard</div>
-						<div class="table-item__text">**** 1954</div>
-						<div class="table-item__buttons flex">
-							<a href="#" class="button button-small _grey">Delete</a>
-						</div>
+			{% if payment_methods %}
+				<div class="payments-table">
+					<div class="bordered-table">
+						{% for p in payment_methods %}
+							<div class="list-table__item flex justify-between align-center payment-method">
+								<div class="table-item__text card-type">MasterCard</div>
+								<div class="table-item__text card-number">**** {{ p.cardNumber | slice(12, 4) }}</div>
+								<div class="table-item__buttons flex">
+									<a href="#" data-id="{{ p.id }}" data-toggle="modal-cancelSub" class="modal-toggle button button-small _grey delete-card-btn">Delete</a>
+								</div>
+							</div>
+						{% endfor %}
 					</div>
 				</div>
-			</div>
+			{% else %}
+				<p>You haven't got any payment method yet</p>
+			{% endif %}
 			<div class="divider-dark mb-1"></div>
 			<div class="section-title flex justify-between">
 				Billing Address
@@ -161,6 +160,63 @@
 			<a href="#" class="button button-default text-center modal-close">Ok</a>
 		</div>
 	</div>
+	<div id="modal-addNewCard" class="modal modal-add m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-title text-center">Add new card</div>
+		<form method="post" id="payment-method-form">
+			<input type="text" name="action" value="add-payment-method" hidden>
+			<div class="form-group">
+				<input class="input-default" id="full-name" type="text" name="full-name">
+				<label for="email">Full name</label>
+				<div class="error-tip">Wrong format</div>
+			</div>
+			<div class="form-group">
+				<input class="input-default" id="card-number" maxlength="19" type="text"  name="card-number" autocomplete="off">
+				<label for="email">Card number</label>
+				<div class="error-tip">Wrong format</div>
+			</div>
+			<div class="form-wrap flex justify-between">
+				<div class="form-group">
+					<input class="input-default" id="expiring-date" maxlength="5" type="text" name="expiring-date">
+					<label for="email">Expiring data</label>
+					<div class="error-tip">Wrong format</div>
+				</div>
+				<div class="form-group">
+					<input class="input-default" id="cvv" maxlength="3" type="text" name="cvv">
+					<label for="email">CVV</label>
+					<div class="error-tip">Wrong format</div>
+				</div>
+			</div>
+			<div class="divider-dark"></div>
+			<div class="btn-group modal-btn__group grid">
+				<button type="button" class="button button-bordered text-center modal-close">Cancel</button>
+				<button type="submit" id="submit-payment-method-btn" class="button button-default text-center">Add</button>
+			</div>
+		</form>
+	</div>
+
+	<div id="modal-cancelSub" class="modal modal-cancel m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-image cancel"></div>
+		<div class="modal-title text-center">Are you shure to delete Payment Method?</div>
+		<div class="modal-delete-payment flex align-center">
+			<div class="modal-delete-payment-name">MasterCard</div>
+			<div class="modal-delete-payment-number">**** 1954</div>
+		</div>
+		<div class="modal-description text-center">
+			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+			eirmod tempor invidunt ut labore et dolore magna aliquyam erat
+		</div>
+		<div class="divider-dark"></div>
+		<div class="btn-group modal-btn__group grid">
+			<a href="#" class="button button-grey text-center" id="delete-payment-method-btn">Yes</a>
+			<a href="#" class="button button-default text-center modal-close">No</a>
+		</div>
+		<form method="post" id="delete-payment-method-form">
+			<input type="text" name="action" value="delete-payment-method" hidden>
+			<input type="text" id="payment-method-id" name="payment-method-id" value="-1" hidden>
+		</form>
+	</div>
 
 	<input type="button" id="show-modal" data-toggle="modal-cancel-success" class="modal-toggle" hidden>
 	
@@ -187,6 +243,69 @@
 		$('.show-cancel-shot-btn').click(function() {
 			let id = $(this).data('id');
 			$('#shot-sub-id').val(id);
+		});
+
+		// delete payment method action
+		$('#delete-payment-method-btn').click(function() {
+			$('#delete-payment-method-form').submit();
+		});
+
+		$('.delete-card-btn').click(function() {
+			let id = $(this).data('id');
+			$('#payment-method-id').val(id);
+
+			let container = $(this).closest('.payment-method');
+
+			let cardType = $(container).find('.card-type').text();
+			let cardNumber = $(container).find('.card-number').text();
+
+			$('.modal-delete-payment-name').text(cardType);
+			$('.modal-delete-payment-number').text(cardNumber);
+		});
+
+		let id_card_number = 'card-number';
+		let id_expiring_date = 'expiring-date';
+
+		// validate add payment method form
+		$('#submit-payment-method-btn').click(function(e) {
+			e.preventDefault();
+
+			let fullName = checkField('full-name');
+			let cardNumber = checkField(id_card_number);
+			let expiringDate = checkField(id_expiring_date);
+			let cvv = checkField('cvv');
+
+			if (!fullName || !cardNumber || !expiringDate || !cvv) {
+				return false;
+			}
+
+			$('#payment-method-form').submit();
+		});
+
+		// add space after each 4 digits
+		$('#' + id_card_number).on('change keypress', function() {
+			let max_length = $(this).attr('maxLength');
+			let value = $(this).val();
+			if (value.length >= max_length) {
+				return false;
+			}
+
+			$(this).val(function (index, value) {
+				return value.replace(/\W/gi, '').replace(/(.{4})/g, '$1 ');
+			});
+		});
+
+		// add slash after first 2 digits
+		$('#' + id_expiring_date).on('change keypress', function() {
+			let max_length = $(this).attr('maxLength');
+			let value = $(this).val();
+			if (value.length >= max_length) {
+				return false;
+			}
+
+			$(this).val(function (index, value) {
+				return value.replace(/\W/gi, '').replace(/(.{2})/g, '$1/');
+			});
 		});
 
 		$(document).ready(function() {

@@ -1,0 +1,652 @@
+@media screen and (max-width: 992px) {
+    .boost-modal {
+        padding-top: 60px;
+    }
+
+    .boost-modal-body {
+        padding-top: 32px;
+    }
+
+    .boost-modal-card {
+        padding-left: 32px;
+        padding-right: 32px;
+        max-width: 640px;
+    }
+
+    .boost-modal-card-bg-1 {
+        top: -98px;
+        left: -260px;
+    }
+
+    .boost-modal-card-bg-2 {
+        top: 68px;
+        right: -143px;
+    }
+
+    .boost-modal .select-default .dropdown {
+        width: 171px;
+    }
+
+    .boost-modal .dropdown.dropdown-left {
+        left: -25px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .boost-modal-body {
+        margin-top: auto;
+        padding-top: 40px;
+        height: 100%;
+        max-height: 832px;
+    }
+
+    .boost-modal-heading {
+        font-size: var(--font-size-xl);
+        line-height: var(--line-height-xl);
+    }
+
+    .boost-modal-card {
+        margin-top: 60px;
+    }
+
+    .boost-modal-card-bg-1 {
+        top: -185px;
+        left: -110px;
+        width: 244px;
+        height: 246px;
+    }
+
+    .boost-modal-card-bg-2 {
+        top: -57px;
+        right: -61px;
+        width: 80px;
+        height: 81px;
+    }
+
+    .boost-modal-card-bg-1:before {
+        top: -50%;
+        left: -50%;
+        width: 600px;
+        height: 600px;
+    }
+
+    .boost-modal-card-bg-2:before {
+        top: -120%;
+        left: -160%;
+        width: 302px;
+        height: 302px;
+    }
+}
+
+@media screen and (max-width: 552px) {
+    .boost-modal {
+        padding-top: 80px;
+    }
+
+    .boost-modal-body {
+        padding: 40px 32px;
+        max-height: 100%;
+    }
+
+    .boost-modal-heading {
+        max-width: 340px;
+        font-size: var(--font-size-l);
+        line-height: var(--line-height-l);
+    }
+
+    .boost-modal-card {
+        margin-top: 28px;
+        padding: 32px 20px 24px 20px;
+    }
+
+    .boost-modal-card-bg-1 {
+        top: -115px;
+        left: -100px;
+        width: 222px;
+        height: 224px;
+    }
+
+    .boost-modal-card-bg-2 {
+        top: -31px;
+        right: -30px;
+        width: 70px;
+        height: 71px;
+    }
+
+    .boost-modal-card.ptb-1,
+    .boost-modal-card.ptb-2 {
+        padding-top: 32px;
+        padding-bottom: 24px;
+    }
+
+    .boost-modal-title {
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-m);
+    }
+
+    .boost-modal-text {
+        max-width: 300px;
+        font-size: var(--font-size-s);
+        line-height: var(--line-height);
+    }
+
+    .boost-modal-img {
+        margin-top: 25px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .boost-modal-success-note {
+        margin-top: 20px;
+        max-width: 314px;
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-s);
+    }
+
+    .boost-modal-success-btn {
+        margin-top: 21px;
+    }
+
+    .boost-modal-settings-wrap,
+    .boost-modal-total-wrap,
+    .boost-modal-payment,
+    .boost-modal-chose,
+    .boost-modal-plan {
+        max-width: 424px;
+    }
+
+    .boost-modal-btn-wrap {
+        max-width: 410px;
+    }
+
+    .boost-modal-settings-shot {
+        max-width: 135px;
+    }
+
+    .boost-modal-settings-info {
+        padding-left: 20px;
+    }
+
+    .boost-modal-settings-range-label {
+        margin-top: 24px;
+    }
+
+    .boost-modal-settings-range-cost {
+        font-size: var(--font-size-s);
+        line-height: var(--line-height);
+    }
+
+    .boost-modal-payment-elem {
+        padding-left: 24px;
+        padding-right: 20px;
+    }
+
+    .boost-modal-chosen-shot {
+        max-width: 135px;
+    }
+
+    .boost-modal-card .boost-modal-total {
+        margin-top: 17px;
+    }
+
+    .boost-modal-chose-elem {
+        padding-left: 32px;
+        padding-right: 20px;
+    }
+
+    .boost-modal-chose-name {
+        width: 40.21%;
+    }
+
+    .modal {
+        margin: 0 20px;
+        width: auto;
+    }
+
+    .boost-modal-congrats .boost-modal-title {
+        font-weight: 700;
+    }
+
+    .boost-modal-congrats .boost-modal-title span {
+        display: block;
+    }
+
+    .boost-modal-congrats .boost-modal-text {
+        margin-top: 24px;
+    }
+
+    .boost-modal-congrats-btn {
+        margin-top: 36px;
+    }
+
+    .boost-modal-plan-name-text {
+        max-width: 190px;
+        font-size: var(--font-size-l);
+        line-height: var(--line-height-l);
+    }
+
+    .boost-modal-plan {
+        position: relative;
+        z-index: 2;
+    }
+
+    .boost-modal .dropdown.dropdown-left {
+        left: auto;
+        right: -15px;
+        top: 30px;
+        width: 118px;
+        padding-left: 16px;
+        padding-right: 15px;
+    }
+
+    .boost-modal-plan-date {
+        margin-top: 18px;
+    }
+
+    .modal-image {
+        margin-top: 21px;
+        margin-bottom: 25px;
+        width: 100px;
+        height: 100px;
+        background-size: 100% auto;
+    }
+
+    .modal-image.cancel {
+        background-size: 100% auto;
+    }
+
+    .modal-title {
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-m);
+    }
+
+    .modal-add .modal-title,
+    .modal-deleted .modal-title,
+    .modal-added .modal-title {
+        font-size: var(--font-size-l);
+        line-height: var(--line-height-l);
+    }
+
+    .modal-cancel-prev,
+    .modal-delete-payment,
+    .modal-dribble-new {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .boost-modal {
+        padding-top: 60px;
+    }
+
+    .boost-modal-body {
+        padding: 32px 16px;
+    }
+
+    .boost-modal-close {
+        top: 20px;
+        right: 20px;
+    }
+
+    .boost-modal-heading {
+        max-width: 214px;
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-m);
+    }
+
+    .boost-modal-card {
+        margin-top: 24px;
+        border-radius: var(--radius-24);
+    }
+
+    .boost-modal-card.ptb-1,
+    .boost-modal-card.ptb-2 {
+        padding: 24px 16px;
+    }
+
+    .boost-modal-card-bg-1 {
+        top: -55px;
+        left: -54px;
+        width: 142px;
+        height: 144px;
+    }
+
+    .boost-modal-card-bg-2 {
+        top: -11px;
+        right: -8px;
+        width: 50px;
+        height: 51px;
+    }
+
+    .boost-modal-card-bg-1:before {
+        top: -50%;
+        left: -50%;
+        width: 400px;
+        height: 400px;
+    }
+
+    .boost-modal-card-bg-2:before {
+        top: -120%;
+        left: -160%;
+        width: 202px;
+        height: 202px;
+    }
+
+    .boost-modal-title {
+        font-size: var(--font-size);
+        line-height: var(--line-height);
+    }
+
+    .boost-modal-title.choose-title {
+        margin: 0 auto;
+        max-width: 130px;
+    }
+
+    .boost-modal-title span {
+        display: block;
+    }
+
+    .boost-modal-img {
+        margin-top: 17px;
+    }
+
+    .boost-modal-settings-wrap,
+    .boost-modal-plan-wrap {
+        flex-wrap: wrap;
+    }
+
+    .boost-modal-name {
+        margin-bottom: 8px;
+    }
+
+    .boost-modal-settings-shot,
+    .boost-modal-plan-name {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .boost-modal-settings-shot-wrap {
+        margin: 0 auto;
+        max-width: 189px;
+    }
+
+    .boost-modal-name {
+        text-align: center;
+    }
+
+    .boost-modal-settings-info .boost-modal-name,
+    .boost-modal-plan-amount-top .boost-modal-name {
+        text-align: left;
+    }
+
+    .boost-modal-settings-info {
+        margin-top: 24px;
+        padding: 0;
+    }
+
+    .boost-modal-settings-info .boost-modal-name {
+        text-align: left;
+    }
+
+    .boost-modal-settings-range-wrap.likes {
+        margin-top: 19px;
+    }
+
+    .boost-modal-settings-range-label {
+        margin-top: 22px;
+    }
+
+    .boost-modal-total-text {
+        font-size: var(--font-size);
+        line-height: var(--line-height-m);
+    }
+
+    .boost-modal-total-val {
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-l);
+    }
+
+    .boost-modal-total-discount {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-m);
+    }
+
+    .boost-modal-btn-wrap .button {
+        min-width: auto;
+        width: 47.66%
+    }
+
+    .boost-modal-payment-wrap {
+        flex-wrap: wrap;
+    }
+
+    .boost-modal-payment-wrap:before,
+    .boost-modal-payment-wrap:after {
+        display: none;
+    }
+
+    .boost-modal-payment-elem {
+        padding-left: 19px;
+        padding-right: 23px;
+        width: 100%;
+    }
+
+    .boost-modal-payment-elem:not(.boost-modal-payment-elem:last-child) {
+        border-bottom: 1px solid var(--color-divider-dark);
+    }
+
+    .boost-modal-payment .boost-modal-name {
+        margin-bottom: 18px;
+    }
+
+    .boost-modal-payment-wrap {
+        border-radius: var(--radius-16);
+    }
+
+    .boost-modal-card .boost-modal-chosen-shot {
+        margin-top: 0;
+        max-width: 189px;
+    }
+
+    .boost-modal-card .boost-modal-total {
+        margin-top: 14px;
+    }
+
+    .boost-modal-chose {
+        margin-top: 15px;
+    }
+
+    .boost-modal-chose-head-title {
+        font-size: var(--font-size);
+        line-height: var(--line-height-m);
+    }
+
+    .boost-modal-chose-elem {
+        padding-left: 19px;
+    }
+
+    .boost-modal-chose-btn-wrap {
+        margin-top: 15px;
+        padding-top: 20px;
+    }
+
+    .modal {
+        margin: 0 16px;
+    }
+
+    .form-wrap {
+        flex-wrap: wrap;
+    }
+
+    .modal-title,
+    .modal-add .modal-title {
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-m);
+    }
+
+    .modal-deleted .modal-title,
+    .modal-added .modal-title {
+        font-size: var(--font-size);
+        line-height: var(--line-height);
+    }
+
+    .modal-add {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+
+    .modal-add .modal-title {
+        margin: 0 auto;
+        max-width: 113px;
+    }
+
+    .button-close {
+        top: 22px;
+        right: 22px;
+    }
+
+    .modal-add form {
+        padding: 20px 16px 0 16px;
+    }
+
+    .modal-add .form-wrap .form-group,
+    .modal-add .form-wrap.three .form-group {
+        width: 100%;
+    }
+
+    .modal-add .form-wrap .form-group:not(:last-child) {
+        margin-bottom: 16px;
+    }
+
+    .modal-add .form-wrap.three .form-group + .form-group {
+        margin-left: 0;
+    }
+
+    .modal-add .divider-dark {
+        margin-top: 20px;
+        margin-lefT: -16px;
+        margin-right: -16px;
+    }
+
+    .btn-group .button {
+        min-width: auto;
+    }
+
+    .boost-modal-congrats .boost-modal-title {
+        margin: 0 auto;
+        max-width: 190px;
+    }
+
+    .boost-modal-congrats .boost-modal-text {
+        margin-top: 11px;
+    }
+
+    .boost-modal-congrats-btn {
+        margin-top: 24px;
+        max-width: 100%;
+    }
+
+    .boost-modal-plan-name-text {
+        margin: 0 auto;
+        max-width: 150px;
+        font-size: var(--font-size-m);
+        line-height: var(--line-height-l);
+        text-align: center;
+    }
+
+    .boost-modal-plan-amount {
+        margin-top: 22px;
+    }
+
+    .boost-modal-plan-amount {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .boost-modal-plan-price {
+        margin-top: 5px;
+    }
+
+    .boost-modal-plan-price-old {
+        font-size: var(--font-size-s);
+        line-height: var(--line-height);
+    }
+
+    .boost-modal-plan-price-new {
+        font-size: var(--font-size-l);
+        line-height: var(--line-height-l);
+    }
+
+    .boost-modal-plan-date {
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid var(--color-divider-dark);
+        align-items: center;
+    }
+
+    .boost-modal-plan-date-title {
+        font-size: var(--font-size);
+        line-height: var(--line-height);
+    }
+
+    .boost-modal-plan-date-info {
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-s);
+        text-align: right;
+    }
+
+    .boost-modal-plan-payment .boost-modal-total {
+        margin-top: 10px;
+    }
+
+    .boost-modal .dropdown.dropdown-left {
+        left: -12px;
+        width: 280px;
+    }
+
+    .modal-cancel .modal-title {
+        font-size: var(--font-size);
+        line-height: var(--line-height);
+    }
+
+    .modal-image.cancel {
+        margin-top: 18px;
+        margin-bottom: 20px;
+    }
+
+    .divider-dark {
+        margin-top: 16px;
+        margin-bottom: 20px;
+    }
+
+    .modal-cancel-prev,
+    .modal-delete-payment,
+    .modal-dribble-new {
+        margin: 0 16px;
+        margin-top: 12px;
+    }
+
+    .modal-delete-payment {
+        padding-left: 16px;
+        padding-right: 16px;
+        justify-content: space-between;
+    }
+
+    .modal-btn__group {
+        padding: 0 16px;
+    }
+
+    .modal-dribble-new {
+        padding: 24px 15px;
+    }
+
+    .modal-dribble-new-icon {
+        margin-right: 12px;
+    }
+
+    .modal-dribble-new-text {
+        font-size: var();
+        line-height: var();
+    }
+}
