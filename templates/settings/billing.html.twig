@@ -97,20 +97,24 @@
 				Billing Address
 				<a href="#" data-toggle="modal-addNewBilling" class="link-sm modal-toggle">Add New Billing Address</a>
 			</div>
-			<div class="billings-table">
-				<div class="bordered-table">
-					<div class="list-table__item flex justify-between">
-						<div class="table-item__text">
-							Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-							sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-							sed diam voluptua.
-						</div>
-						<div class="table-item__buttons flex">
-							<a href="#" class="button button-small _grey">Delete</a>
+			{% if billing_address %}
+				<div class="billings-table">
+					<div class="bordered-table">
+						<div class="list-table__item flex justify-between">
+							<div class="table-item__text">
+								Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+								sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+								sed diam voluptua.
+							</div>
+							<div class="table-item__buttons flex">
+								<a href="#" data-toggle="modal-delete-billing" class="modal-toggle button button-small _grey">Delete</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			{% else %}
+				<p>You haven't got any billing address yet</p>
+			{% endif %}
 		</div>
 	</div>
 	
@@ -194,11 +198,10 @@
 			</div>
 		</form>
 	</div>
-
 	<div id="modal-cancelSub" class="modal modal-cancel m-auto">
 		<a href="#" class="button-close modal-close"></a>
 		<div class="modal-image cancel"></div>
-		<div class="modal-title text-center">Are you shure to delete Payment Method?</div>
+		<div class="modal-title text-center">Are you sure to delete Payment Method?</div>
 		<div class="modal-delete-payment flex align-center">
 			<div class="modal-delete-payment-name">MasterCard</div>
 			<div class="modal-delete-payment-number">**** 1954</div>
@@ -220,7 +223,8 @@
 	<div id="modal-addNewBilling" class="modal modal-add m-auto">
 		<a href="#" class="button-close modal-close"></a>
 		<div class="modal-title text-center">Add new Billing Address</div>
-		<form method="post">
+		<form method="post" id="billing-address-form">
+			<input type="text" name="action" value="add-billing-address" hidden>
 			<div class="form-group">
 				<input class="input-default" id="streetAddress" type="text" name="street-address">
 				<label for="email">Street Address</label>
@@ -258,6 +262,23 @@
 				<button type="button" class="modal-close button button-bordered text-center">Cancel</button>
 				<button type="button" id="add-billing-address-btn" class="button button-default text-center">Add</button>
 			</div>
+		</form>
+	</div>
+	<div id="modal-delete-billing" class="modal modal-cancel m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-image cancel"></div>
+		<div class="modal-title text-center">Are you sure to delete Billing Adress ?</div>
+		<div class="modal-description text-center">
+			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+			eirmod tempor invidunt ut labore et dolore magna aliquyam erat
+		</div>
+		<div class="divider-dark"></div>
+		<div class="btn-group modal-btn__group grid">
+			<a href="#" id="delete-billing-address-btn" class="button button-grey text-center">Yes</a>
+			<a href="#" class="button button-default text-center modal-close">No</a>
+		</div>
+		<form method="post" id="delete-billing-address-form">
+			<input type="text" name="action" value="delete-billing-address" hidden>
 		</form>
 	</div>
 
@@ -306,15 +327,26 @@
 			$('.modal-delete-payment-number').text(cardNumber);
 		});
 
+		// delete billing address action
+		$('#delete-billing-address-btn').click(function() {
+			$('#delete-billing-address-form').submit();
+		});
+
 		// validate add billing address form
 		$('#add-billing-address-btn').click(function() {
 			console.log('validating...');
 
 			let street = checkField('streetAddress');
+			let country = checkField('country');
+			let state = checkField('state');
+			let city = checkField('city');
+			let zip = checkField('zipCode');
 
-			if (!street) {
+			if (!street || !country || !state || !city || !zip) {
 				return false;
 			}
+
+			$('#billing-address-form').submit();
 		});
 
 		let id_card_number = 'card-number';
@@ -372,7 +404,6 @@
 		});
 
 		// country-state-city api call
-
 		var headers = new Headers();
 		headers.append("X-CSCAPI-KEY", "TGxGREI1bzVzRUVnWVdzWlBJcWV3MlJGR0c4QThmOE9TZVFUVFVXag==");
 
@@ -400,11 +431,11 @@
 		let cities = null;
 		function processCities(json) {
 			cities = JSON.parse(json);
-			console.log(cities);
 		}
 
 		let selectedCountry = null;
 		let selectedState = null;
+		let selectedCity = null;
 
 		$('#country').on('keyup change', function() {
 			let value = $(this).val();
@@ -438,7 +469,6 @@
 
 		$('#state').on('keyup change', function() {
 			let value = $(this).val();
-			console.log(value);
 			let error = true;
 			let state = null;
 
@@ -465,7 +495,6 @@
 
 			console.log(state);
 		});
-
 	</script>
 
 {% endblock %}

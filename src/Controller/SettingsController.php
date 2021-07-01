@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\BillingAddress;
 use App\Entity\DribbbleShotTask;
 use App\Entity\DribbleSubscriptionTask;
 use App\Entity\PaymentMethod;
@@ -159,6 +160,30 @@ class SettingsController extends AbstractController
                 $em->remove($payment_method);
                 $em->flush();
             }
+        } else if ($action == 'add-billing-address') {
+            $street = $request->get('street-address');
+            $country = $request->get('country');
+            $state = $request->get('state');
+            $city = $request->get('city');
+            $zip = $request->get('zip-code');
+
+            $billing_address = new BillingAddress();
+            $billing_address->setUser($user);
+            $billing_address->setStreet($street);
+            $billing_address->setCountry($country);
+            $billing_address->setState($state);
+            $billing_address->setCity($city);
+            $billing_address->setZip($zip);
+
+            $em->persist($billing_address);
+            $em->flush();
+        } else if ($action == 'delete-billing-address') {
+            $billing_address = $user->getBillingAddress() ?? null;
+
+            if ($billing_address) {
+                $em->remove($billing_address);
+                $em->flush();
+            }
         }
 
         $data = [];
@@ -187,7 +212,11 @@ class SettingsController extends AbstractController
 
         // get user payment methods
         $paymentMethods = $em->getRepository(PaymentMethod::class)
-                ->findBy(['user' => $user]) ?? null;
+            ->findBy(['user' => $user]) ?? null;
+
+        // get user billing address
+        $billing_address = $em->getRepository(BillingAddress::class)
+            ->findOneBy(['user' => $user]) ?? null;
 
         return $this->render('settings/billing.html.twig', [
             'controller_name'  => 'SettingsController',
@@ -197,6 +226,7 @@ class SettingsController extends AbstractController
             'orderShot'        => $orderShot,
             'cancel_sub_boost' => $cancel_sub_boost,
             'payment_methods'  => $paymentMethods,
+            'billing_address'  => $billing_address,
         ]);
     }
 

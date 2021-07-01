@@ -90,6 +90,11 @@ class User implements UserInterface
      */
     private $dribbbleShotTasks;
 
+    /**
+     * @ORM\OneToOne(targetEntity=BillingAddress::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $billingAddress;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -311,6 +316,23 @@ class User implements UserInterface
                 $dribbbleShotTask->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?BillingAddress
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(BillingAddress $billingAddress): self
+    {
+        // set the owning side of the relation if necessary
+        if ($billingAddress->getUser() !== $this) {
+            $billingAddress->setUser($this);
+        }
+
+        $this->billingAddress = $billingAddress;
 
         return $this;
     }

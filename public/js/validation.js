@@ -33,6 +33,11 @@ function checkField(id) {
         return false;
     }
 
+    if (id == 'city' && !checkCity(v)) {
+        addError(p);
+        return false;
+    }
+
     if (t == 'email' && !checkEmail(v)) {
         addError(p);
         return false;
@@ -109,6 +114,17 @@ function checkCvv(cvv) {
 
 function checkCheckbox(id) {
     return $('#' + id).is(":checked");
+}
+
+function checkCity(name) {
+    for (let  i = 0; i < cities.length; i++) {
+        let city = cities[i];
+        if (city['name'] == name) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // validate card expiring date
