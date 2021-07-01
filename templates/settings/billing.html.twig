@@ -95,7 +95,7 @@
 			<div class="divider-dark mb-1"></div>
 			<div class="section-title flex justify-between">
 				Billing Address
-				<a href="#" class="link-sm">Add New Billing Address</a>
+				<a href="#" data-toggle="modal-addNewBilling" class="link-sm modal-toggle">Add New Billing Address</a>
 			</div>
 			<div class="billings-table">
 				<div class="bordered-table">
@@ -217,6 +217,49 @@
 			<input type="text" id="payment-method-id" name="payment-method-id" value="-1" hidden>
 		</form>
 	</div>
+	<div id="modal-addNewBilling" class="modal modal-add m-auto">
+		<a href="#" class="button-close modal-close"></a>
+		<div class="modal-title text-center">Add new Billing Address</div>
+		<form method="post">
+			<div class="form-group">
+				<input class="input-default" id="streetAddress" type="text" name="street-address">
+				<label for="email">Street Address</label>
+				<div class="error-tip">Wrong format</div>
+			</div>
+			<div class="form-group">
+				<input class="input-default" id="apt" type="text" name="apt">
+				<label for="email">Apt, Unit, Suite, etc. (optional)</label>
+				<div class="error-tip">Wrong format</div>
+			</div>
+			<div class="form-group">
+				<input class="input-default" id="country" type="text" name="country">
+				<label for="email">Country</label>
+				<div class="error-tip">Wrong format</div>
+			</div>
+			<div class="form-wrap three flex justify-between">
+				<div class="form-group">
+					<input class="input-default" id="state" type="text" name="state" disabled>
+					<label for="email">State</label>
+					<div class="error-tip">Wrong format</div>
+				</div>
+				<div class="form-group">
+					<input class="input-default" id="city" type="text" name="city" disabled>
+					<label for="email">City</label>
+					<div class="error-tip">Wrong format</div>
+				</div>
+				<div class="form-group">
+					<input class="input-default disabled" id="zipCode" type="text" name="zip-code">
+					<label for="email">Zip Code</label>
+					<div class="error-tip">Wrong format</div>
+				</div>
+			</div>
+			<div class="divider-dark"></div>
+			<div class="btn-group modal-btn__group grid">
+				<button type="button" class="modal-close button button-bordered text-center">Cancel</button>
+				<button type="button" id="add-billing-address-btn" class="button button-default text-center">Add</button>
+			</div>
+		</form>
+	</div>
 
 	<input type="button" id="show-modal" data-toggle="modal-cancel-success" class="modal-toggle" hidden>
 	
@@ -261,6 +304,17 @@
 
 			$('.modal-delete-payment-name').text(cardType);
 			$('.modal-delete-payment-number').text(cardNumber);
+		});
+
+		// validate add billing address form
+		$('#add-billing-address-btn').click(function() {
+			console.log('validating...');
+
+			let street = checkField('streetAddress');
+
+			if (!street) {
+				return false;
+			}
 		});
 
 		let id_card_number = 'card-number';
@@ -316,6 +370,102 @@
 				}, 500);
 			{% endif %}
 		});
+
+		// country-state-city api call
+
+		var headers = new Headers();
+		headers.append("X-CSCAPI-KEY", "TGxGREI1bzVzRUVnWVdzWlBJcWV3MlJGR0c4QThmOE9TZVFUVFVXag==");
+
+		var requestOptions = {
+			method: 'GET',
+			headers: headers,
+			redirect: 'follow'
+		};
+
+		fetch("https://api.countrystatecity.in/v1/countries", requestOptions)
+				.then(response => response.text())
+				.then(result => processCountries(result))
+				.catch(error => console.log('error', error));
+
+		let countries = null;
+		function processCountries(json) {
+			countries = JSON.parse(json);
+		}
+
+		let states = null;
+		function processStates(json) {
+			states = JSON.parse(json);
+		}
+
+		let cities = null;
+		function processCities(json) {
+			cities = JSON.parse(json);
+			console.log(cities);
+		}
+
+		let selectedCountry = null;
+		let selectedState = null;
+
+		$('#country').on('keyup change', function() {
+			let value = $(this).val();
+			let error = true;
+			let country = null;
+
+			for (let i = 0; i < countries.length; i++) {
+				country = countries[i];
+				if (country['name'] == value) {
+					selectedCountry = country;
+					error = false;
+					break;
+				}
+			}
+
+			if (error) {
+				 $('#state').val("").attr('disabled', true);
+				 $('#city').val("").attr('disabled', true);
+				 return false;
+			}
+
+			$('#state').attr('disabled', false);
+
+			fetch("https://api.countrystatecity.in/v1/countries/" + country['iso2'] + "/states", requestOptions)
+					.then(response => response.text())
+					.then(result => processStates(result))
+					.catch(error => console.log('error', error));
+
+			console.log(country);
+		});
+
+		$('#state').on('keyup change', function() {
+			let value = $(this).val();
+			console.log(value);
+			let error = true;
+			let state = null;
+
+			for (let i = 0; i < states.length; i++) {
+				state = states[i];
+				if (state['name'] == value) {
+					selectedState = state;
+					error = false;
+					break;
+				}
+			}
+
+			if (error) {
+				$('#city').val("").attr('disabled', true);
+				return false;
+			}
+
+			$('#city').attr('disabled', false);
+
+			fetch("https://api.countrystatecity.in/v1/countries/" + selectedCountry['iso2'] + "/states/" + selectedState['iso2'] + "/cities", requestOptions)
+					.then(response => response.text())
+					.then(result => processCities(result))
+					.catch(error => console.log('error', error));
+
+			console.log(state);
+		});
+
 	</script>
 
 {% endblock %}
